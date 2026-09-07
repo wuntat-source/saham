@@ -93,6 +93,7 @@ export default function TradePage({ params }: TradePageProps) {
 
   const currentPrice = quote?.price || 1000;
   const holdingLots = userPortfolio?.lots || 0;
+  const stockMeta = STOCKS.find((s) => s.ticker === currentTicker);
 
   return (
     <div className="space-y-6">
@@ -153,7 +154,7 @@ export default function TradePage({ params }: TradePageProps) {
                 </div>
                 <div
                   className={`text-xs font-mono font-bold inline-flex items-center gap-0.5 ${
-                    (quote?.change ?? 0) >= 0 ? 'text-emerald-400' : 'text-rose-400'
+                    ((quote?.change ?? 0) >= 0) ? 'text-emerald-400' : 'text-rose-400'
                   }`}
                 >
                   {(quote?.change ?? 0) >= 0 ? (
@@ -162,8 +163,8 @@ export default function TradePage({ params }: TradePageProps) {
                     <ArrowDownRight className="w-3.5 h-3.5" />
                   )}
                   {(quote?.change ?? 0) >= 0 ? '+' : ''}
-                  {quote?.change?.toLocaleString('id-ID')} ({(quote?.changePct ?? 0) >= 0 ? '+' : ''}
-                  {quote?.changePct}%)
+                  {(quote?.change ?? 0).toLocaleString('id-ID')} ({((quote?.changePct ?? (quote as any)?.change_percent ?? 0) >= 0 ? '+' : '')}
+                  {(quote?.changePct ?? (quote as any)?.change_percent ?? 0).toFixed(2)}%)
                 </div>
               </div>
             </div>
@@ -173,7 +174,7 @@ export default function TradePage({ params }: TradePageProps) {
           <StockChart
             ticker={currentTicker}
             currentPrice={currentPrice}
-            changePct={quote?.changePct || 0}
+            changePct={Number((quote?.changePct ?? (quote as any)?.change_percent ?? 0).toFixed(2))}
           />
 
           {/* Key Metrics Grid */}
@@ -186,40 +187,40 @@ export default function TradePage({ params }: TradePageProps) {
               <div className="bg-slate-950 p-3 rounded-xl border border-slate-800">
                 <div className="text-[10px] text-slate-500 uppercase">Open (Pembukaan)</div>
                 <div className="text-slate-200 font-bold mt-0.5">
-                  Rp{quote?.open.toLocaleString('id-ID')}
+                  Rp{(quote?.open ?? stockMeta?.basePrice ?? 0).toLocaleString('id-ID')}
                 </div>
               </div>
               <div className="bg-slate-950 p-3 rounded-xl border border-slate-800">
                 <div className="text-[10px] text-slate-500 uppercase">High (Tertinggi)</div>
                 <div className="text-emerald-400 font-bold mt-0.5">
-                  Rp{quote?.high.toLocaleString('id-ID')}
+                  Rp{(quote?.high ?? stockMeta?.basePrice ?? 0).toLocaleString('id-ID')}
                 </div>
               </div>
               <div className="bg-slate-950 p-3 rounded-xl border border-slate-800">
                 <div className="text-[10px] text-slate-500 uppercase">Low (Terendah)</div>
                 <div className="text-rose-400 font-bold mt-0.5">
-                  Rp{quote?.low.toLocaleString('id-ID')}
+                  Rp{(quote?.low ?? stockMeta?.basePrice ?? 0).toLocaleString('id-ID')}
                 </div>
               </div>
               <div className="bg-slate-950 p-3 rounded-xl border border-slate-800">
                 <div className="text-[10px] text-slate-500 uppercase">Prev Close</div>
                 <div className="text-slate-200 font-bold mt-0.5">
-                  Rp{quote?.prevClose.toLocaleString('id-ID')}
+                  Rp{(quote?.prevClose ?? (quote as any)?.prev_close ?? stockMeta?.basePrice ?? 0).toLocaleString('id-ID')}
                 </div>
               </div>
               <div className="bg-slate-950 p-3 rounded-xl border border-slate-800">
                 <div className="text-[10px] text-slate-500 uppercase">Volume Perdagangan</div>
                 <div className="text-slate-200 font-bold mt-0.5">
-                  {quote?.volume.toLocaleString('id-ID')}
+                  {(quote?.volume ?? 0).toLocaleString('id-ID')}
                 </div>
               </div>
               <div className="bg-slate-950 p-3 rounded-xl border border-slate-800">
                 <div className="text-[10px] text-slate-500 uppercase">P/E Ratio</div>
-                <div className="text-slate-200 font-bold mt-0.5">{quote?.peRatio}x</div>
+                <div className="text-slate-200 font-bold mt-0.5">{quote?.peRatio || stockMeta?.peRatio || 15}x</div>
               </div>
               <div className="bg-slate-950 p-3 rounded-xl border border-slate-800">
                 <div className="text-[10px] text-slate-500 uppercase">Kapitalisasi Pasar</div>
-                <div className="text-slate-200 font-bold mt-0.5">{quote?.marketCap}</div>
+                <div className="text-slate-200 font-bold mt-0.5">{quote?.marketCap || stockMeta?.marketCap || '50 T'}</div>
               </div>
               <div className="bg-slate-950 p-3 rounded-xl border border-slate-800">
                 <div className="text-[10px] text-slate-500 uppercase">Simbol Yahoo</div>

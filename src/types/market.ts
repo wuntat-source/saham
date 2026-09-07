@@ -5,12 +5,17 @@ export interface StockQuote {
   price: number;
   change: number;
   change_percent: number;
+  changePct?: number;
   open: number;
   high: number;
   low: number;
   prev_close: number;
+  prevClose?: number;
   volume: number;
-  timestamp: string;
+  marketCap?: string;
+  peRatio?: number;
+  description?: string;
+  timestamp?: string;
 }
 
 export interface HistoricalCandle {

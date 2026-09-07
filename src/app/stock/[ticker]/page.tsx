@@ -149,7 +149,7 @@ export default function StockPage({ params }: StockPageProps) {
               </div>
               <div
                 className={`text-xs font-mono font-bold inline-flex items-center gap-0.5 ${
-                  (quote?.change ?? 0) >= 0 ? 'text-emerald-400' : 'text-rose-400'
+                  ((quote?.change ?? 0) >= 0) ? 'text-emerald-400' : 'text-rose-400'
                 }`}
               >
                 {(quote?.change ?? 0) >= 0 ? (
@@ -158,8 +158,8 @@ export default function StockPage({ params }: StockPageProps) {
                   <ArrowDownRight className="w-3.5 h-3.5" />
                 )}
                 {(quote?.change ?? 0) >= 0 ? '+' : ''}
-                {quote?.change?.toLocaleString('id-ID')} ({(quote?.change_percent ?? 0) >= 0 ? '+' : ''}
-                {quote?.change_percent}%)
+                {(quote?.change ?? 0).toLocaleString('id-ID')} ({((quote?.changePct ?? (quote as any)?.change_percent ?? 0) >= 0 ? '+' : '')}
+                {(quote?.changePct ?? (quote as any)?.change_percent ?? 0).toFixed(2)}%)
               </div>
             </div>
           </div>
@@ -168,7 +168,7 @@ export default function StockPage({ params }: StockPageProps) {
           <StockChart
             ticker={currentTicker}
             currentPrice={currentPrice}
-            changePct={quote?.change_percent || 0}
+            changePct={Number((quote?.changePct ?? (quote as any)?.change_percent ?? 0).toFixed(2))}
           />
 
           {/* Key Metrics Grid */}
@@ -181,31 +181,31 @@ export default function StockPage({ params }: StockPageProps) {
               <div className="bg-slate-950 p-3 rounded-xl border border-slate-800">
                 <div className="text-[10px] text-slate-500 uppercase">Open (Pembukaan)</div>
                 <div className="text-slate-200 font-bold mt-0.5">
-                  Rp{quote?.open.toLocaleString('id-ID')}
+                  Rp{(quote?.open ?? stockMeta?.basePrice ?? 0).toLocaleString('id-ID')}
                 </div>
               </div>
               <div className="bg-slate-950 p-3 rounded-xl border border-slate-800">
                 <div className="text-[10px] text-slate-500 uppercase">High (Tertinggi)</div>
                 <div className="text-emerald-400 font-bold mt-0.5">
-                  Rp{quote?.high.toLocaleString('id-ID')}
+                  Rp{(quote?.high ?? stockMeta?.basePrice ?? 0).toLocaleString('id-ID')}
                 </div>
               </div>
               <div className="bg-slate-950 p-3 rounded-xl border border-slate-800">
                 <div className="text-[10px] text-slate-500 uppercase">Low (Terendah)</div>
                 <div className="text-rose-400 font-bold mt-0.5">
-                  Rp{quote?.low.toLocaleString('id-ID')}
+                  Rp{(quote?.low ?? stockMeta?.basePrice ?? 0).toLocaleString('id-ID')}
                 </div>
               </div>
               <div className="bg-slate-950 p-3 rounded-xl border border-slate-800">
                 <div className="text-[10px] text-slate-500 uppercase">Prev Close</div>
                 <div className="text-slate-200 font-bold mt-0.5">
-                  Rp{quote?.prev_close.toLocaleString('id-ID')}
+                  Rp{(quote?.prevClose ?? (quote as any)?.prev_close ?? stockMeta?.basePrice ?? 0).toLocaleString('id-ID')}
                 </div>
               </div>
               <div className="bg-slate-950 p-3 rounded-xl border border-slate-800">
                 <div className="text-[10px] text-slate-500 uppercase">Volume Harian</div>
                 <div className="text-slate-200 font-bold mt-0.5">
-                  {quote?.volume.toLocaleString('id-ID')}
+                  {(quote?.volume ?? 0).toLocaleString('id-ID')}
                 </div>
               </div>
               <div className="bg-slate-950 p-3 rounded-xl border border-slate-800">

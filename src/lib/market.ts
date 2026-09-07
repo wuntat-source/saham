@@ -7,10 +7,12 @@ export interface StockQuote {
   price: number;
   change: number;
   changePct: number;
+  change_percent?: number;
   open: number;
   high: number;
   low: number;
   prevClose: number;
+  prev_close?: number;
   volume: number;
   marketCap: string;
   peRatio: number;
@@ -140,10 +142,12 @@ export async function fetchStockQuote(ticker: string): Promise<StockQuote> {
     price: currentPrice,
     change: Math.round(change),
     changePct: parseFloat(changePct.toFixed(2)),
+    change_percent: parseFloat(changePct.toFixed(2)),
     open,
     high,
     low,
     prevClose,
+    prev_close: prevClose,
     volume,
     marketCap: stockInfo.marketCap,
     peRatio: stockInfo.peRatio,
