@@ -88,7 +88,7 @@ export default function LoginPage() {
         {/* Demo Login Quick Shortcuts */}
         <div className="bg-white border border-slate-200 rounded-2xl p-4 space-y-2.5 shadow-sm">
           <div className="text-[11px] font-bold text-slate-700 uppercase tracking-wider flex items-center gap-1.5">
-            <Sparkles className="w-3.5 h-3.5 text-amber-500" />
+            <Sparkles className="w-3.5 h-3.5 text-amber-600" />
             <span>Akses Cepat Demo Pengguna</span>
           </div>
           <div className="grid grid-cols-2 gap-2">
@@ -99,13 +99,13 @@ export default function LoginPage() {
                 setPassword('pidi123');
                 handleLogin(undefined, 'pidi', 'pidi123');
               }}
-              className="px-3 py-2 bg-slate-50 hover:bg-emerald-50/60 border border-slate-200 hover:border-emerald-300 rounded-xl text-left transition-all text-xs group cursor-pointer"
+              className="px-3 py-2 bg-emerald-50/50 hover:bg-emerald-100/70 border border-emerald-200 rounded-xl text-left transition-all text-xs group cursor-pointer"
             >
-              <div className="font-bold text-emerald-700 flex items-center justify-between">
+              <div className="font-bold text-emerald-800 flex items-center justify-between">
                 <span>👨‍🎓 Murid: Pidi</span>
-                <ArrowRight className="w-3 h-3 text-slate-400 group-hover:text-emerald-600" />
+                <ArrowRight className="w-3 h-3 text-emerald-600 group-hover:translate-x-0.5 transition-transform" />
               </div>
-              <div className="text-[10px] text-slate-500 font-mono">pidi / pidi123</div>
+              <div className="text-[10px] text-slate-600 font-mono font-semibold">pidi / pidi123</div>
             </button>
 
             <button
@@ -115,37 +115,37 @@ export default function LoginPage() {
                 setPassword('bampri123');
                 handleLogin(undefined, 'bampri', 'bampri123');
               }}
-              className="px-3 py-2 bg-slate-50 hover:bg-emerald-50/60 border border-slate-200 hover:border-emerald-300 rounded-xl text-left transition-all text-xs group cursor-pointer"
+              className="px-3 py-2 bg-emerald-50/50 hover:bg-emerald-100/70 border border-emerald-200 rounded-xl text-left transition-all text-xs group cursor-pointer"
             >
-              <div className="font-bold text-emerald-700 flex items-center justify-between">
+              <div className="font-bold text-emerald-800 flex items-center justify-between">
                 <span>👨‍🎓 Murid: Bampri</span>
-                <ArrowRight className="w-3 h-3 text-slate-400 group-hover:text-emerald-600" />
+                <ArrowRight className="w-3 h-3 text-emerald-600 group-hover:translate-x-0.5 transition-transform" />
               </div>
-              <div className="text-[10px] text-slate-500 font-mono">bampri / bampri123</div>
+              <div className="text-[10px] text-slate-600 font-mono font-semibold">bampri / bampri123</div>
             </button>
 
             <button
               type="button"
               onClick={() => loginDemo('teacher')}
-              className="px-3 py-2 bg-slate-50 hover:bg-indigo-50/60 border border-slate-200 hover:border-indigo-300 rounded-xl text-left transition-all text-xs group cursor-pointer"
+              className="px-3 py-2 bg-indigo-50/50 hover:bg-indigo-100/70 border border-indigo-200 rounded-xl text-left transition-all text-xs group cursor-pointer"
             >
-              <div className="font-bold text-indigo-700 flex items-center justify-between">
+              <div className="font-bold text-indigo-800 flex items-center justify-between">
                 <span>👨‍🏫 Akun Guru</span>
-                <ArrowRight className="w-3 h-3 text-slate-400 group-hover:text-indigo-600" />
+                <ArrowRight className="w-3 h-3 text-indigo-600 group-hover:translate-x-0.5 transition-transform" />
               </div>
-              <div className="text-[10px] text-slate-500 font-mono">guru@edutradex.id</div>
+              <div className="text-[10px] text-slate-600 font-mono font-semibold">guru@edutradex.id</div>
             </button>
 
             <button
               type="button"
               onClick={() => loginDemo('student')}
-              className="px-3 py-2 bg-slate-50 hover:bg-amber-50/60 border border-slate-200 hover:border-amber-300 rounded-xl text-left transition-all text-xs group cursor-pointer"
+              className="px-3 py-2 bg-amber-50/50 hover:bg-amber-100/70 border border-amber-200 rounded-xl text-left transition-all text-xs group cursor-pointer"
             >
-              <div className="font-bold text-amber-700 flex items-center justify-between">
+              <div className="font-bold text-amber-800 flex items-center justify-between">
                 <span>👨‍🎓 Demo Siswa 1</span>
-                <ArrowRight className="w-3 h-3 text-slate-400 group-hover:text-amber-600" />
+                <ArrowRight className="w-3 h-3 text-amber-600 group-hover:translate-x-0.5 transition-transform" />
               </div>
-              <div className="text-[10px] text-slate-500 font-mono">siswa1@edutradex.id</div>
+              <div className="text-[10px] text-slate-600 font-mono font-semibold">siswa1@edutradex.id</div>
             </button>
           </div>
         </div>

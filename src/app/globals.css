@@ -146,32 +146,34 @@ h1, h2, h3, h4, h5, h6 {
   border-color: #c7d2fe !important;
 }
 
-/* Buttons & Elements that MUST keep white text */
-button[class*="bg-emerald-"],
-button[class*="bg-rose-"],
-button[class*="bg-indigo-"],
-button[class*="bg-blue-"],
-a[class*="bg-emerald-"],
-a[class*="bg-rose-"],
-a[class*="bg-indigo-"],
-a[class*="bg-blue-"],
-.bg-emerald-500,
-.bg-emerald-600,
-.bg-rose-500,
-.bg-rose-600,
-.bg-indigo-600,
-.bg-blue-600 {
+/* Buttons & Elements that MUST keep white text (Only solid dark/colored buttons) */
+button.bg-emerald-500,
+button.bg-emerald-600,
+button.bg-rose-500,
+button.bg-rose-600,
+button.bg-indigo-600,
+button.bg-blue-600,
+a.bg-emerald-500,
+a.bg-emerald-600,
+a.bg-rose-500,
+a.bg-rose-600,
+a.bg-indigo-600,
+a.bg-blue-600 {
   color: #ffffff !important;
 }
 
-button[class*="bg-emerald-"] *,
-button[class*="bg-rose-"] *,
-button[class*="bg-indigo-"] *,
-button[class*="bg-blue-"] *,
-a[class*="bg-emerald-"] *,
-a[class*="bg-rose-"] *,
-a[class*="bg-indigo-"] *,
-a[class*="bg-blue-"] * {
+button.bg-emerald-500 *,
+button.bg-emerald-600 *,
+button.bg-rose-500 *,
+button.bg-rose-600 *,
+button.bg-indigo-600 *,
+button.bg-blue-600 *,
+a.bg-emerald-500 *,
+a.bg-emerald-600 *,
+a.bg-rose-500 *,
+a.bg-rose-600 *,
+a.bg-indigo-600 *,
+a.bg-blue-600 * {
   color: #ffffff !important;
 }
 
