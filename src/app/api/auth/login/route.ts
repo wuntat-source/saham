@@ -15,13 +15,17 @@ export async function POST(req: Request) {
     }
 
     const cleanEmail = email.toLowerCase().trim();
+    const rawEmail = email.trim();
 
     const user = await prisma.user.findFirst({
       where: {
         OR: [
           { email: cleanEmail },
+          { email: rawEmail },
           { name: cleanEmail },
+          { name: rawEmail },
           { email: `${cleanEmail}@edutradex.com` },
+          { email: `${cleanEmail}@edutradex.id` },
           { email: `${cleanEmail}@gmail.com` },
         ],
       },

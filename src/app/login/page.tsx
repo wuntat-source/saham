@@ -94,12 +94,44 @@ export default function LoginPage() {
           <div className="grid grid-cols-2 gap-2">
             <button
               type="button"
-              onClick={() => loginDemo('teacher')}
+              onClick={() => {
+                setEmail('pidi');
+                setPassword('pidi123');
+                handleLogin(undefined, 'pidi', 'pidi123');
+              }}
               className="px-3 py-2 bg-slate-950 hover:bg-slate-800 border border-slate-800 hover:border-emerald-500/50 rounded-xl text-left transition-all text-xs group"
             >
               <div className="font-bold text-emerald-400 flex items-center justify-between">
-                <span>👨‍🏫 Akun Guru</span>
+                <span>👨‍🎓 Murid: Pidi</span>
                 <ArrowRight className="w-3 h-3 text-slate-500 group-hover:text-emerald-400" />
+              </div>
+              <div className="text-[10px] text-slate-400">pidi / pidi123</div>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => {
+                setEmail('bampri');
+                setPassword('bampri123');
+                handleLogin(undefined, 'bampri', 'bampri123');
+              }}
+              className="px-3 py-2 bg-slate-950 hover:bg-slate-800 border border-slate-800 hover:border-emerald-500/50 rounded-xl text-left transition-all text-xs group"
+            >
+              <div className="font-bold text-emerald-400 flex items-center justify-between">
+                <span>👨‍🎓 Murid: Bampri</span>
+                <ArrowRight className="w-3 h-3 text-slate-500 group-hover:text-emerald-400" />
+              </div>
+              <div className="text-[10px] text-slate-400">bampri / bampri123</div>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => loginDemo('teacher')}
+              className="px-3 py-2 bg-slate-950 hover:bg-slate-800 border border-slate-800 hover:border-emerald-500/50 rounded-xl text-left transition-all text-xs group"
+            >
+              <div className="font-bold text-cyan-400 flex items-center justify-between">
+                <span>👨‍🏫 Akun Guru</span>
+                <ArrowRight className="w-3 h-3 text-slate-500 group-hover:text-cyan-400" />
               </div>
               <div className="text-[10px] text-slate-400">guru@edutradex.id</div>
             </button>
@@ -109,9 +141,9 @@ export default function LoginPage() {
               onClick={() => loginDemo('student')}
               className="px-3 py-2 bg-slate-950 hover:bg-slate-800 border border-slate-800 hover:border-emerald-500/50 rounded-xl text-left transition-all text-xs group"
             >
-              <div className="font-bold text-emerald-400 flex items-center justify-between">
-                <span>👨‍🎓 Akun Siswa</span>
-                <ArrowRight className="w-3 h-3 text-slate-500 group-hover:text-emerald-400" />
+              <div className="font-bold text-amber-400 flex items-center justify-between">
+                <span>👨‍🎓 Demo Siswa 1</span>
+                <ArrowRight className="w-3 h-3 text-slate-500 group-hover:text-amber-400" />
               </div>
               <div className="text-[10px] text-slate-400">siswa1@edutradex.id</div>
             </button>
@@ -130,11 +162,11 @@ export default function LoginPage() {
           <form onSubmit={handleLogin} className="space-y-4">
             <div>
               <label className="block text-xs font-semibold text-slate-300 mb-1">
-                Email Terdaftar
+                Username atau Email Terdaftar
               </label>
               <input
-                type="email"
-                placeholder="nama@sekolah.id"
+                type="text"
+                placeholder="Contoh: pidi, bampri, atau email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
