@@ -32,9 +32,9 @@ export default function TickerRibbon() {
   const displayQuotes = [...quotes, ...quotes];
 
   return (
-    <div className="bg-slate-950 border-b border-slate-800/80 text-xs py-1.5 overflow-hidden select-none">
-      <div className="flex items-center space-x-2 px-3 border-r border-slate-800 float-left bg-slate-950 z-10 text-emerald-400 font-semibold uppercase tracking-wider text-[10px]">
-        <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+    <div className="bg-slate-100/95 border-b border-slate-200 text-xs py-1.5 overflow-hidden select-none">
+      <div className="flex items-center space-x-2 px-3 border-r border-slate-200 float-left bg-slate-100 z-10 text-emerald-700 font-bold uppercase tracking-wider text-[10px]">
+        <span className="w-2 h-2 rounded-full bg-emerald-600 animate-pulse"></span>
         <span>IDX LIVE</span>
       </div>
 
@@ -45,17 +45,17 @@ export default function TickerRibbon() {
             <Link
               key={`${q.ticker}-${idx}`}
               href={`/trade/${q.ticker}`}
-              className="inline-flex items-center space-x-1.5 hover:text-white transition-colors group cursor-pointer"
+              className="inline-flex items-center space-x-1.5 hover:text-emerald-700 transition-colors group cursor-pointer"
             >
-              <span className="font-bold text-slate-200 group-hover:text-emerald-400">
+              <span className="font-bold text-slate-800 group-hover:text-emerald-600">
                 {q.ticker}
               </span>
-              <span className="text-slate-300">
+              <span className="text-slate-600 font-mono">
                 Rp{q.price.toLocaleString('id-ID')}
               </span>
               <span
-                className={`inline-flex items-center text-[11px] font-medium ${
-                  isUp ? 'text-emerald-400' : 'text-rose-400'
+                className={`inline-flex items-center text-[11px] font-bold ${
+                  isUp ? 'text-emerald-600' : 'text-rose-600'
                 }`}
               >
                 {isUp ? (

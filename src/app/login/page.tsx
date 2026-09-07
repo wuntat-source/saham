@@ -72,23 +72,23 @@ export default function LoginPage() {
       <div className="max-w-md w-full space-y-6">
         {/* Header */}
         <div className="text-center space-y-2">
-          <div className="inline-flex items-center justify-center w-14 h-14 rounded-3xl bg-gradient-to-tr from-emerald-500 to-teal-400 p-0.5 shadow-xl shadow-emerald-500/20 mb-2">
-            <div className="w-full h-full bg-slate-950 rounded-[22px] flex items-center justify-center">
-              <TrendingUp className="w-7 h-7 text-emerald-400 font-black" />
+          <div className="inline-flex items-center justify-center w-14 h-14 rounded-3xl bg-gradient-to-tr from-emerald-500 to-teal-400 p-0.5 shadow-md shadow-emerald-500/20 mb-2">
+            <div className="w-full h-full bg-white rounded-[22px] flex items-center justify-center">
+              <TrendingUp className="w-7 h-7 text-emerald-600 font-black" />
             </div>
           </div>
-          <h1 className="text-2xl font-black text-white tracking-tight">
-            Masuk ke EduTrade<span className="text-emerald-400">X</span>
+          <h1 className="text-2xl font-black text-slate-900 tracking-tight">
+            Masuk ke EduTrade<span className="text-emerald-600">X</span>
           </h1>
-          <p className="text-xs text-slate-400">
+          <p className="text-xs text-slate-500 font-medium">
             Akses terminal simulasi pasar modal virtual sekolah Anda
           </p>
         </div>
 
         {/* Demo Login Quick Shortcuts */}
-        <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-4 space-y-2.5 shadow-xl">
-          <div className="text-[11px] font-bold text-slate-300 uppercase tracking-wider flex items-center gap-1.5">
-            <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+        <div className="bg-white border border-slate-200 rounded-2xl p-4 space-y-2.5 shadow-sm">
+          <div className="text-[11px] font-bold text-slate-700 uppercase tracking-wider flex items-center gap-1.5">
+            <Sparkles className="w-3.5 h-3.5 text-amber-500" />
             <span>Akses Cepat Demo Pengguna</span>
           </div>
           <div className="grid grid-cols-2 gap-2">
@@ -99,13 +99,13 @@ export default function LoginPage() {
                 setPassword('pidi123');
                 handleLogin(undefined, 'pidi', 'pidi123');
               }}
-              className="px-3 py-2 bg-slate-950 hover:bg-slate-800 border border-slate-800 hover:border-emerald-500/50 rounded-xl text-left transition-all text-xs group"
+              className="px-3 py-2 bg-slate-50 hover:bg-emerald-50/60 border border-slate-200 hover:border-emerald-300 rounded-xl text-left transition-all text-xs group cursor-pointer"
             >
-              <div className="font-bold text-emerald-400 flex items-center justify-between">
+              <div className="font-bold text-emerald-700 flex items-center justify-between">
                 <span>👨‍🎓 Murid: Pidi</span>
-                <ArrowRight className="w-3 h-3 text-slate-500 group-hover:text-emerald-400" />
+                <ArrowRight className="w-3 h-3 text-slate-400 group-hover:text-emerald-600" />
               </div>
-              <div className="text-[10px] text-slate-400">pidi / pidi123</div>
+              <div className="text-[10px] text-slate-500 font-mono">pidi / pidi123</div>
             </button>
 
             <button
@@ -115,53 +115,53 @@ export default function LoginPage() {
                 setPassword('bampri123');
                 handleLogin(undefined, 'bampri', 'bampri123');
               }}
-              className="px-3 py-2 bg-slate-950 hover:bg-slate-800 border border-slate-800 hover:border-emerald-500/50 rounded-xl text-left transition-all text-xs group"
+              className="px-3 py-2 bg-slate-50 hover:bg-emerald-50/60 border border-slate-200 hover:border-emerald-300 rounded-xl text-left transition-all text-xs group cursor-pointer"
             >
-              <div className="font-bold text-emerald-400 flex items-center justify-between">
+              <div className="font-bold text-emerald-700 flex items-center justify-between">
                 <span>👨‍🎓 Murid: Bampri</span>
-                <ArrowRight className="w-3 h-3 text-slate-500 group-hover:text-emerald-400" />
+                <ArrowRight className="w-3 h-3 text-slate-400 group-hover:text-emerald-600" />
               </div>
-              <div className="text-[10px] text-slate-400">bampri / bampri123</div>
+              <div className="text-[10px] text-slate-500 font-mono">bampri / bampri123</div>
             </button>
 
             <button
               type="button"
               onClick={() => loginDemo('teacher')}
-              className="px-3 py-2 bg-slate-950 hover:bg-slate-800 border border-slate-800 hover:border-emerald-500/50 rounded-xl text-left transition-all text-xs group"
+              className="px-3 py-2 bg-slate-50 hover:bg-indigo-50/60 border border-slate-200 hover:border-indigo-300 rounded-xl text-left transition-all text-xs group cursor-pointer"
             >
-              <div className="font-bold text-cyan-400 flex items-center justify-between">
+              <div className="font-bold text-indigo-700 flex items-center justify-between">
                 <span>👨‍🏫 Akun Guru</span>
-                <ArrowRight className="w-3 h-3 text-slate-500 group-hover:text-cyan-400" />
+                <ArrowRight className="w-3 h-3 text-slate-400 group-hover:text-indigo-600" />
               </div>
-              <div className="text-[10px] text-slate-400">guru@edutradex.id</div>
+              <div className="text-[10px] text-slate-500 font-mono">guru@edutradex.id</div>
             </button>
 
             <button
               type="button"
               onClick={() => loginDemo('student')}
-              className="px-3 py-2 bg-slate-950 hover:bg-slate-800 border border-slate-800 hover:border-emerald-500/50 rounded-xl text-left transition-all text-xs group"
+              className="px-3 py-2 bg-slate-50 hover:bg-amber-50/60 border border-slate-200 hover:border-amber-300 rounded-xl text-left transition-all text-xs group cursor-pointer"
             >
-              <div className="font-bold text-amber-400 flex items-center justify-between">
+              <div className="font-bold text-amber-700 flex items-center justify-between">
                 <span>👨‍🎓 Demo Siswa 1</span>
-                <ArrowRight className="w-3 h-3 text-slate-500 group-hover:text-amber-400" />
+                <ArrowRight className="w-3 h-3 text-slate-400 group-hover:text-amber-600" />
               </div>
-              <div className="text-[10px] text-slate-400">siswa1@edutradex.id</div>
+              <div className="text-[10px] text-slate-500 font-mono">siswa1@edutradex.id</div>
             </button>
           </div>
         </div>
 
         {/* Login Form */}
-        <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-2xl space-y-4">
+        <div className="bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 shadow-lg space-y-4">
           {error && (
-            <div className="p-3 bg-rose-500/20 text-rose-300 border border-rose-500/30 rounded-xl text-xs font-medium flex items-center space-x-2">
-              <AlertCircle className="w-4 h-4 shrink-0" />
+            <div className="p-3 bg-rose-50 text-rose-700 border border-rose-200 rounded-xl text-xs font-semibold flex items-center space-x-2">
+              <AlertCircle className="w-4 h-4 shrink-0 text-rose-600" />
               <span>{error}</span>
             </div>
           )}
 
           <form onSubmit={handleLogin} className="space-y-4">
             <div>
-              <label className="block text-xs font-semibold text-slate-300 mb-1">
+              <label className="block text-xs font-bold text-slate-700 mb-1">
                 Username atau Email Terdaftar
               </label>
               <input
@@ -170,12 +170,12 @@ export default function LoginPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-2.5 text-sm text-white placeholder:text-slate-600 focus:outline-none focus:border-emerald-500"
+                className="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-300 mb-1">
+              <label className="block text-xs font-bold text-slate-700 mb-1">
                 Kata Sandi
               </label>
               <input
@@ -184,23 +184,23 @@ export default function LoginPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                className="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-2.5 text-sm text-white placeholder:text-slate-600 focus:outline-none focus:border-emerald-500"
+                className="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20"
               />
             </div>
 
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black text-sm shadow-lg shadow-emerald-500/20 transition-all flex items-center justify-center space-x-2 disabled:opacity-50"
+              className="w-full py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-black text-sm shadow-md shadow-emerald-600/20 transition-all flex items-center justify-center space-x-2 disabled:opacity-50 cursor-pointer"
             >
               <LogIn className="w-4 h-4" />
               <span>{loading ? 'Memverifikasi...' : 'Masuk Sekarang'}</span>
             </button>
           </form>
 
-          <div className="text-center pt-2 text-xs text-slate-400">
+          <div className="text-center pt-2 text-xs text-slate-500 font-medium">
             Belum memiliki akun?{' '}
-            <Link href="/register" className="text-emerald-400 font-bold hover:underline">
+            <Link href="/register" className="text-emerald-600 font-bold hover:underline">
               Daftar Siswa / Guru Baru
             </Link>
           </div>

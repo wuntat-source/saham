@@ -72,24 +72,24 @@ export default function RegisterPage() {
       <div className="max-w-md w-full space-y-6">
         {/* Header */}
         <div className="text-center space-y-2">
-          <div className="inline-flex items-center justify-center w-14 h-14 rounded-3xl bg-gradient-to-tr from-emerald-500 to-teal-400 p-0.5 shadow-xl shadow-emerald-500/20 mb-2">
-            <div className="w-full h-full bg-slate-950 rounded-[22px] flex items-center justify-center">
-              <TrendingUp className="w-7 h-7 text-emerald-400 font-black" />
+          <div className="inline-flex items-center justify-center w-14 h-14 rounded-3xl bg-gradient-to-tr from-emerald-500 to-teal-400 p-0.5 shadow-md shadow-emerald-500/20 mb-2">
+            <div className="w-full h-full bg-white rounded-[22px] flex items-center justify-center">
+              <TrendingUp className="w-7 h-7 text-emerald-600 font-black" />
             </div>
           </div>
-          <h1 className="text-2xl font-black text-white tracking-tight">
-            Daftar Akun Baru EduTrade<span className="text-emerald-400">X</span>
+          <h1 className="text-2xl font-black text-slate-900 tracking-tight">
+            Daftar Akun Baru EduTrade<span className="text-emerald-600">X</span>
           </h1>
-          <p className="text-xs text-slate-400">
+          <p className="text-xs text-slate-500 font-medium">
             Mulai pengalaman simulasi pasar saham virtual dengan saldo awal Rp100.000.000
           </p>
         </div>
 
         {/* Register Form */}
-        <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-2xl space-y-4">
+        <div className="bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 shadow-lg space-y-4">
           {error && (
-            <div className="p-3 bg-rose-500/20 text-rose-300 border border-rose-500/30 rounded-xl text-xs font-medium flex items-center space-x-2">
-              <AlertCircle className="w-4 h-4 shrink-0" />
+            <div className="p-3 bg-rose-50 text-rose-700 border border-rose-200 rounded-xl text-xs font-semibold flex items-center space-x-2">
+              <AlertCircle className="w-4 h-4 shrink-0 text-rose-600" />
               <span>{error}</span>
             </div>
           )}
@@ -97,17 +97,17 @@ export default function RegisterPage() {
           <form onSubmit={handleRegister} className="space-y-4">
             {/* Role Switcher */}
             <div>
-              <label className="block text-xs font-semibold text-slate-300 mb-1.5">
+              <label className="block text-xs font-bold text-slate-700 mb-1.5">
                 Pilih Peran Anda
               </label>
-              <div className="grid grid-cols-2 gap-2 bg-slate-950 p-1 rounded-xl border border-slate-800">
+              <div className="grid grid-cols-2 gap-2 bg-slate-100 p-1 rounded-xl border border-slate-200">
                 <button
                   type="button"
                   onClick={() => setRole('student')}
-                  className={`py-2 rounded-lg text-xs font-bold transition-all ${
+                  className={`py-2 rounded-lg text-xs font-bold transition-all cursor-pointer ${
                     role === 'student'
-                      ? 'bg-emerald-500 text-slate-950 shadow'
-                      : 'text-slate-400 hover:text-white'
+                      ? 'bg-white text-emerald-700 shadow-xs border border-slate-200'
+                      : 'text-slate-600 hover:text-slate-900'
                   }`}
                 >
                   👨‍🎓 Siswa (Trader)
@@ -115,10 +115,10 @@ export default function RegisterPage() {
                 <button
                   type="button"
                   onClick={() => setRole('teacher')}
-                  className={`py-2 rounded-lg text-xs font-bold transition-all ${
+                  className={`py-2 rounded-lg text-xs font-bold transition-all cursor-pointer ${
                     role === 'teacher'
-                      ? 'bg-emerald-500 text-slate-950 shadow'
-                      : 'text-slate-400 hover:text-white'
+                      ? 'bg-white text-emerald-700 shadow-xs border border-slate-200'
+                      : 'text-slate-600 hover:text-slate-900'
                   }`}
                 >
                   👨‍🏫 Guru (Admin Kelas)
@@ -127,7 +127,7 @@ export default function RegisterPage() {
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-300 mb-1">
+              <label className="block text-xs font-bold text-slate-700 mb-1">
                 Nama Lengkap
               </label>
               <input
@@ -136,12 +136,12 @@ export default function RegisterPage() {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 required
-                className="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-2.5 text-sm text-white placeholder:text-slate-600 focus:outline-none focus:border-emerald-500"
+                className="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-300 mb-1">
+              <label className="block text-xs font-bold text-slate-700 mb-1">
                 Alamat Email
               </label>
               <input
@@ -150,12 +150,12 @@ export default function RegisterPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-2.5 text-sm text-white placeholder:text-slate-600 focus:outline-none focus:border-emerald-500"
+                className="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-300 mb-1">
+              <label className="block text-xs font-bold text-slate-700 mb-1">
                 Kata Sandi
               </label>
               <input
@@ -165,22 +165,22 @@ export default function RegisterPage() {
                 onChange={(e) => setPassword(e.target.value)}
                 required
                 minLength={6}
-                className="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-2.5 text-sm text-white placeholder:text-slate-600 focus:outline-none focus:border-emerald-500"
+                className="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20"
               />
             </div>
 
             {role === 'student' && (
               <div>
-                <label className="block text-xs font-semibold text-slate-300 mb-1 flex items-center justify-between">
+                <label className="block text-xs font-bold text-slate-700 mb-1 flex items-center justify-between">
                   <span>Kode Undangan Kelas (Opsional)</span>
-                  <span className="text-[10px] text-emerald-400 font-mono">Demo: SMAN1-EKO</span>
+                  <span className="text-[10px] text-emerald-700 font-mono font-semibold">Demo: SMAN1-EKO</span>
                 </label>
                 <input
                   type="text"
                   placeholder="Contoh: SMAN1-EKO"
                   value={invitationCode}
                   onChange={(e) => setInvitationCode(e.target.value.toUpperCase())}
-                  className="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-2.5 text-sm font-mono uppercase text-emerald-400 placeholder:text-slate-600 focus:outline-none focus:border-emerald-500"
+                  className="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-2.5 text-sm font-mono uppercase text-emerald-700 placeholder:text-slate-400 focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20"
                 />
               </div>
             )}
@@ -188,16 +188,16 @@ export default function RegisterPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black text-sm shadow-lg shadow-emerald-500/20 transition-all flex items-center justify-center space-x-2 disabled:opacity-50"
+              className="w-full py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-black text-sm shadow-md shadow-emerald-600/20 transition-all flex items-center justify-center space-x-2 disabled:opacity-50 cursor-pointer"
             >
               <UserPlus className="w-4 h-4" />
               <span>{loading ? 'Mendaftarkan Akun...' : 'Daftar Sekarang'}</span>
             </button>
           </form>
 
-          <div className="text-center pt-2 text-xs text-slate-400">
+          <div className="text-center pt-2 text-xs text-slate-500 font-medium">
             Sudah memiliki akun?{' '}
-            <Link href="/login" className="text-emerald-400 font-bold hover:underline">
+            <Link href="/login" className="text-emerald-600 font-bold hover:underline">
               Masuk ke Akun
             </Link>
           </div>

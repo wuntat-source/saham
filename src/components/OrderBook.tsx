@@ -33,8 +33,8 @@ export default function OrderBook({ ticker, currentPrice }: OrderBookProps) {
 
   if (!orderBook) {
     return (
-      <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 flex items-center justify-center min-h-[220px]">
-        <RefreshCw className="w-5 h-5 text-slate-500 animate-spin" />
+      <div className="bg-white border border-slate-200 rounded-2xl p-4 flex items-center justify-center min-h-[220px] shadow-xs">
+        <RefreshCw className="w-5 h-5 text-slate-400 animate-spin" />
       </div>
     );
   }
@@ -44,21 +44,21 @@ export default function OrderBook({ ticker, currentPrice }: OrderBookProps) {
   const maxVolume = Math.max(maxBidLots, maxAskLots);
 
   return (
-    <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 shadow-xl">
-      <div className="flex items-center justify-between pb-3 mb-2 border-b border-slate-800">
+    <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm">
+      <div className="flex items-center justify-between pb-3 mb-2 border-b border-slate-100">
         <div className="flex items-center space-x-2">
-          <Layers className="w-4 h-4 text-emerald-400" />
-          <h3 className="text-xs font-bold uppercase tracking-wider text-slate-200">
+          <Layers className="w-4 h-4 text-emerald-600" />
+          <h3 className="text-xs font-bold uppercase tracking-wider text-slate-800">
             Order Book (Bid / Offer)
           </h3>
         </div>
-        <div className="text-[11px] text-slate-400 font-mono">
-          Spread: <b className="text-slate-200">Rp{orderBook.spread.toLocaleString('id-ID')}</b>
+        <div className="text-[11px] text-slate-500 font-mono">
+          Spread: <b className="text-slate-800">Rp{orderBook.spread.toLocaleString('id-ID')}</b>
         </div>
       </div>
 
       {/* Header */}
-      <div className="grid grid-cols-2 gap-2 text-[10px] uppercase font-bold text-slate-400 tracking-wider pb-1 px-1">
+      <div className="grid grid-cols-2 gap-2 text-[10px] uppercase font-bold text-slate-500 tracking-wider pb-1 px-1">
         <div className="flex justify-between">
           <span>Bid (Beli)</span>
           <span>Vol (Lot)</span>
@@ -81,29 +81,29 @@ export default function OrderBook({ ticker, currentPrice }: OrderBookProps) {
           return (
             <div key={idx} className="grid grid-cols-2 gap-2">
               {/* Bid Side (Green) */}
-              <div className="relative flex items-center justify-between px-2 py-1 bg-slate-950/80 rounded border border-slate-800/60 overflow-hidden">
+              <div className="relative flex items-center justify-between px-2 py-1 bg-emerald-50/40 rounded border border-emerald-100/80 overflow-hidden">
                 <div
                   className="absolute inset-y-0 right-0 bg-emerald-500/15 transition-all duration-300"
                   style={{ width: `${bidPct}%` }}
                 />
-                <span className="font-bold text-emerald-400 relative z-10">
+                <span className="font-bold text-emerald-700 relative z-10">
                   {bid ? bid.price.toLocaleString('id-ID') : '-'}
                 </span>
-                <span className="text-slate-300 text-[11px] relative z-10">
+                <span className="text-slate-700 text-[11px] font-semibold relative z-10">
                   {bid ? bid.lots.toLocaleString('id-ID') : '-'}
                 </span>
               </div>
 
               {/* Ask Side (Red) */}
-              <div className="relative flex items-center justify-between px-2 py-1 bg-slate-950/80 rounded border border-slate-800/60 overflow-hidden">
+              <div className="relative flex items-center justify-between px-2 py-1 bg-rose-50/40 rounded border border-rose-100/80 overflow-hidden">
                 <div
                   className="absolute inset-y-0 left-0 bg-rose-500/15 transition-all duration-300"
                   style={{ width: `${askPct}%` }}
                 />
-                <span className="text-slate-300 text-[11px] relative z-10">
+                <span className="text-slate-700 text-[11px] font-semibold relative z-10">
                   {ask ? ask.lots.toLocaleString('id-ID') : '-'}
                 </span>
-                <span className="font-bold text-rose-400 relative z-10">
+                <span className="font-bold text-rose-700 relative z-10">
                   {ask ? ask.price.toLocaleString('id-ID') : '-'}
                 </span>
               </div>
@@ -112,9 +112,9 @@ export default function OrderBook({ ticker, currentPrice }: OrderBookProps) {
         })}
       </div>
 
-      <div className="mt-3 pt-2 border-t border-slate-800/80 flex items-center justify-between text-[11px] text-slate-400">
+      <div className="mt-3 pt-2 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500">
         <span>Harga Terakhir:</span>
-        <span className="font-mono font-bold text-emerald-400">
+        <span className="font-mono font-bold text-emerald-700">
           Rp{currentPrice.toLocaleString('id-ID')}
         </span>
       </div>

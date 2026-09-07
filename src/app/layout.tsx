@@ -27,9 +27,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="id" className="dark">
+    <html lang="id">
       <body
-        className={`${inter.variable} ${jetbrainsMono.variable} font-sans bg-slate-950 text-slate-100 min-h-screen flex flex-col antialiased selection:bg-emerald-500 selection:text-slate-950`}
+        className={`${inter.variable} ${jetbrainsMono.variable} font-sans bg-slate-50 text-slate-900 min-h-screen flex flex-col antialiased selection:bg-emerald-500 selection:text-white`}
       >
         <AuthProvider>
           <TickerRibbon />
@@ -37,13 +37,13 @@ export default function RootLayout({
           <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
             {children}
           </main>
-          <footer className="border-t border-slate-900 bg-slate-950/80 py-6 text-center text-xs text-slate-500">
+          <footer className="border-t border-slate-200 bg-white py-6 text-center text-xs text-slate-600 shadow-xs">
             <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2">
               <div className="flex items-center space-x-2 font-mono">
                 <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
-                <span>EduTradeX v2.4 • Zero Financial Risk, 100% Real-Market Dynamics</span>
+                <span className="font-semibold text-slate-700">EduTradeX v2.4 • Zero Financial Risk, 100% Real-Market Dynamics</span>
               </div>
-              <div>Bursa Efek Indonesia Dummy Ledger Engine • 1 Lot = 100 Lembar</div>
+              <div className="text-slate-500">Bursa Efek Indonesia Dummy Ledger Engine • 1 Lot = 100 Lembar</div>
             </div>
           </footer>
         </AuthProvider>

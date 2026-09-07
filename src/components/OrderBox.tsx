@@ -139,18 +139,18 @@ export default function OrderBox({
   };
 
   return (
-    <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-xl flex flex-col">
+    <div className="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm flex flex-col">
       {/* Tab Selector (BUY / SELL) */}
-      <div className="grid grid-cols-2 gap-2 bg-slate-950 p-1 rounded-xl mb-4 border border-slate-800">
+      <div className="grid grid-cols-2 gap-2 bg-slate-100 p-1 rounded-xl mb-4 border border-slate-200">
         <button
           onClick={() => {
             setTab('BUY');
             setMsg(null);
           }}
-          className={`py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition-all flex items-center justify-center space-x-1.5 ${
+          className={`py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition-all flex items-center justify-center space-x-1.5 cursor-pointer ${
             tab === 'BUY'
-              ? 'bg-emerald-500 text-slate-950 shadow-md shadow-emerald-500/20'
-              : 'text-slate-400 hover:text-white'
+              ? 'bg-emerald-600 text-white shadow-xs'
+              : 'text-slate-600 hover:text-slate-900'
           }`}
         >
           <ArrowUpRight className="w-4 h-4" />
@@ -161,10 +161,10 @@ export default function OrderBox({
             setTab('SELL');
             setMsg(null);
           }}
-          className={`py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition-all flex items-center justify-center space-x-1.5 ${
+          className={`py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition-all flex items-center justify-center space-x-1.5 cursor-pointer ${
             tab === 'SELL'
-              ? 'bg-rose-500 text-white shadow-md shadow-rose-500/20'
-              : 'text-slate-400 hover:text-white'
+              ? 'bg-rose-600 text-white shadow-xs'
+              : 'text-slate-600 hover:text-slate-900'
           }`}
         >
           <ArrowDownRight className="w-4 h-4" />
@@ -173,21 +173,21 @@ export default function OrderBox({
       </div>
 
       {/* Mode Selector (Market / Limit) */}
-      <div className="flex items-center justify-between text-xs mb-3 text-slate-400">
-        <span className="font-semibold text-slate-300">Tipe Eksekusi:</span>
-        <div className="flex items-center space-x-1 bg-slate-950 p-1 rounded-lg border border-slate-800">
+      <div className="flex items-center justify-between text-xs mb-3 text-slate-500">
+        <span className="font-semibold text-slate-700">Tipe Eksekusi:</span>
+        <div className="flex items-center space-x-1 bg-slate-100 p-1 rounded-lg border border-slate-200">
           <button
             onClick={() => setMode('MARKET')}
-            className={`px-2.5 py-1 rounded text-[11px] font-semibold transition-all ${
-              mode === 'MARKET' ? 'bg-slate-800 text-emerald-400' : 'text-slate-400 hover:text-white'
+            className={`px-2.5 py-1 rounded text-[11px] font-semibold transition-all cursor-pointer ${
+              mode === 'MARKET' ? 'bg-white text-emerald-700 shadow-xs font-bold' : 'text-slate-600 hover:text-slate-900'
             }`}
           >
             Instan (Market)
           </button>
           <button
             onClick={() => setMode('LIMIT')}
-            className={`px-2.5 py-1 rounded text-[11px] font-semibold transition-all ${
-              mode === 'LIMIT' ? 'bg-slate-800 text-emerald-400' : 'text-slate-400 hover:text-white'
+            className={`px-2.5 py-1 rounded text-[11px] font-semibold transition-all cursor-pointer ${
+              mode === 'LIMIT' ? 'bg-white text-emerald-700 shadow-xs font-bold' : 'text-slate-600 hover:text-slate-900'
             }`}
           >
             Kustom (Limit)
@@ -199,7 +199,7 @@ export default function OrderBox({
       <div className="space-y-3">
         {/* Price Field */}
         <div>
-          <label className="block text-[11px] font-semibold text-slate-400 uppercase tracking-wider mb-1">
+          <label className="block text-[11px] font-bold text-slate-600 uppercase tracking-wider mb-1">
             Harga Eksekusi (Rp)
           </label>
           <div className="relative">
@@ -208,10 +208,10 @@ export default function OrderBox({
               disabled={mode === 'MARKET'}
               value={mode === 'MARKET' ? currentPrice : priceInput}
               onChange={(e) => setPriceInput(parseFloat(e.target.value) || 0)}
-              className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2.5 text-sm font-mono font-bold text-white disabled:opacity-80 focus:outline-none focus:border-emerald-500"
+              className="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 text-sm font-mono font-bold text-slate-900 disabled:opacity-80 focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20"
             />
             {mode === 'MARKET' && (
-              <span className="absolute right-3 top-2.5 text-[10px] uppercase font-bold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded">
+              <span className="absolute right-3 top-2.5 text-[10px] uppercase font-bold text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded">
                 Live Market
               </span>
             )}
@@ -221,10 +221,10 @@ export default function OrderBox({
         {/* Lot Field */}
         <div>
           <div className="flex justify-between items-center mb-1">
-            <label className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">
+            <label className="text-[11px] font-bold text-slate-600 uppercase tracking-wider">
               Jumlah Lot (1 Lot = 100 Lembar)
             </label>
-            <span className="text-[11px] text-slate-400 font-mono">
+            <span className="text-[11px] text-slate-500 font-mono font-semibold">
               {tab === 'BUY'
                 ? `Maks: ${maxAffordableLots} Lot`
                 : `Dimiliki: ${userHoldingLots} Lot`}
@@ -233,7 +233,7 @@ export default function OrderBox({
           <div className="flex items-center space-x-2">
             <button
               onClick={() => setLots((prev) => Math.max(1, prev - 1))}
-              className="px-3 py-2.5 bg-slate-950 hover:bg-slate-800 border border-slate-700 rounded-xl text-slate-300 font-bold text-base transition-colors"
+              className="px-3.5 py-2.5 bg-slate-100 hover:bg-slate-200 border border-slate-300 rounded-xl text-slate-700 font-bold text-base transition-colors cursor-pointer"
             >
               -
             </button>
@@ -242,11 +242,11 @@ export default function OrderBox({
               min="1"
               value={lots}
               onChange={(e) => setLots(Math.max(1, parseInt(e.target.value) || 1))}
-              className="flex-1 bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2.5 text-sm font-mono font-bold text-white text-center focus:outline-none focus:border-emerald-500"
+              className="flex-1 bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 text-sm font-mono font-bold text-slate-900 text-center focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20"
             />
             <button
               onClick={() => setLots((prev) => prev + 1)}
-              className="px-3 py-2.5 bg-slate-950 hover:bg-slate-800 border border-slate-700 rounded-xl text-slate-300 font-bold text-base transition-colors"
+              className="px-3.5 py-2.5 bg-slate-100 hover:bg-slate-200 border border-slate-300 rounded-xl text-slate-700 font-bold text-base transition-colors cursor-pointer"
             >
               +
             </button>
@@ -260,7 +260,7 @@ export default function OrderBox({
               key={pct}
               type="button"
               onClick={() => applyPercent(pct)}
-              className="py-1.5 bg-slate-950 hover:bg-slate-800 border border-slate-800 rounded-lg text-[11px] font-bold text-slate-300 hover:text-emerald-400 transition-colors"
+              className="py-1.5 bg-slate-100 hover:bg-emerald-50 border border-slate-200 rounded-lg text-[11px] font-bold text-slate-700 hover:text-emerald-700 transition-colors cursor-pointer"
             >
               {pct}%
             </button>
@@ -269,25 +269,25 @@ export default function OrderBox({
       </div>
 
       {/* Financial Ledger Calculation Breakdown */}
-      <div className="my-4 p-3.5 bg-slate-950/90 rounded-xl border border-slate-800/80 space-y-1.5 text-xs">
-        <div className="flex justify-between text-slate-400">
+      <div className="my-4 p-3.5 bg-slate-50 rounded-xl border border-slate-200 space-y-1.5 text-xs">
+        <div className="flex justify-between text-slate-600">
           <span>Nilai Saham ({shares.toLocaleString('id-ID')} lembar):</span>
-          <span className="font-mono text-slate-200">
+          <span className="font-mono text-slate-900 font-semibold">
             Rp{grossAmount.toLocaleString('id-ID')}
           </span>
         </div>
-        <div className="flex justify-between text-slate-400">
+        <div className="flex justify-between text-slate-600">
           <span>
             Fee Broker ({tab === 'BUY' ? '0.15%' : '0.25%'}):
           </span>
-          <span className="font-mono text-slate-300">
+          <span className="font-mono text-slate-700">
             Rp{(tab === 'BUY' ? buyFee : sellFee).toLocaleString('id-ID')}
           </span>
         </div>
-        <div className="h-px bg-slate-800 my-1" />
-        <div className="flex justify-between text-slate-200 font-bold">
+        <div className="h-px bg-slate-200 my-1" />
+        <div className="flex justify-between text-slate-800 font-bold">
           <span>Total {tab === 'BUY' ? 'Pembayaran' : 'Penerimaan'}:</span>
-          <span className={`font-mono text-sm ${tab === 'BUY' ? 'text-emerald-400' : 'text-rose-400'}`}>
+          <span className={`font-mono text-sm ${tab === 'BUY' ? 'text-emerald-700' : 'text-rose-700'}`}>
             Rp{(tab === 'BUY' ? buyTotal : sellTotal).toLocaleString('id-ID')}
           </span>
         </div>
@@ -296,16 +296,16 @@ export default function OrderBox({
       {/* Alerts / Feedback Message */}
       {msg && (
         <div
-          className={`p-3 rounded-xl text-xs font-medium mb-3 flex items-start space-x-2 ${
+          className={`p-3 rounded-xl text-xs font-semibold mb-3 flex items-start space-x-2 ${
             msg.type === 'success'
-              ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30'
-              : 'bg-rose-500/20 text-rose-300 border border-rose-500/30'
+              ? 'bg-emerald-50 text-emerald-800 border border-emerald-200'
+              : 'bg-rose-50 text-rose-800 border border-rose-200'
           }`}
         >
           {msg.type === 'success' ? (
-            <CheckCircle2 className="w-4 h-4 shrink-0 mt-0.5 text-emerald-400" />
+            <CheckCircle2 className="w-4 h-4 shrink-0 mt-0.5 text-emerald-600" />
           ) : (
-            <AlertCircle className="w-4 h-4 shrink-0 mt-0.5 text-rose-400" />
+            <AlertCircle className="w-4 h-4 shrink-0 mt-0.5 text-rose-600" />
           )}
           <span>{msg.text}</span>
         </div>
@@ -315,10 +315,10 @@ export default function OrderBox({
       <button
         onClick={handleExecute}
         disabled={loading}
-        className={`w-full py-3.5 rounded-xl font-bold text-sm tracking-wide transition-all shadow-lg flex items-center justify-center space-x-2 disabled:opacity-50 cursor-pointer ${
+        className={`w-full py-3.5 rounded-xl font-bold text-sm tracking-wide transition-all shadow-md flex items-center justify-center space-x-2 disabled:opacity-50 cursor-pointer ${
           tab === 'BUY'
-            ? 'bg-emerald-500 hover:bg-emerald-400 text-slate-950 shadow-emerald-500/20'
-            : 'bg-rose-500 hover:bg-rose-400 text-white shadow-rose-500/20'
+            ? 'bg-emerald-600 hover:bg-emerald-500 text-white shadow-emerald-600/20'
+            : 'bg-rose-600 hover:bg-rose-500 text-white shadow-rose-600/20'
         }`}
       >
         {loading ? (
@@ -333,7 +333,7 @@ export default function OrderBox({
         )}
       </button>
 
-      <div className="flex items-center justify-center space-x-1 text-[10px] text-slate-500 mt-2">
+      <div className="flex items-center justify-center space-x-1 text-[10px] text-slate-500 mt-2 font-medium">
         <span>Eksekusi instan ledger dummy — Bebas risiko finansial</span>
       </div>
     </div>

@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --background: #020617;
-  --foreground: #f8fafc;
+  --background: #f8fafc;
+  --foreground: #0f172a;
 }
 
 @theme inline {
@@ -13,9 +13,98 @@
 }
 
 body {
-  background: #020617;
-  color: #f8fafc;
+  background-color: #f8fafc;
+  color: #0f172a;
   overflow-x: hidden;
+}
+
+/* Light Theme Harmonization for All Pages & Panels */
+.bg-slate-950 {
+  background-color: #f1f5f9;
+}
+
+.bg-slate-900 {
+  background-color: #ffffff;
+}
+
+.bg-slate-850 {
+  background-color: #f8fafc;
+}
+
+.bg-slate-800 {
+  background-color: #f1f5f9;
+}
+
+.border-slate-800,
+.border-slate-800\/80,
+.border-slate-800\/60 {
+  border-color: #e2e8f0;
+}
+
+.border-slate-700,
+.border-slate-700\/80 {
+  border-color: #cbd5e1;
+}
+
+/* Typography contrast adjustments */
+h1.text-white, h2.text-white, h3.text-white, h4.text-white, span.text-white, div.text-white, b.text-white {
+  color: #0f172a;
+}
+
+.text-slate-200 {
+  color: #1e293b;
+}
+
+.text-slate-300 {
+  color: #334155;
+}
+
+.text-slate-400 {
+  color: #64748b;
+}
+
+.text-slate-500 {
+  color: #64748b;
+}
+
+/* Preserve contrast inside colored buttons and badges */
+button.bg-emerald-500, button.bg-emerald-600, 
+button.bg-rose-500, button.bg-rose-600,
+button.bg-indigo-600, button.bg-blue-600 {
+  color: #ffffff !important;
+}
+
+/* Keep primary emerald & rose financial colors crisp */
+.text-emerald-400 {
+  color: #059669 !important;
+}
+
+.text-rose-400 {
+  color: #e11d48 !important;
+}
+
+.bg-emerald-500\/20 {
+  background-color: rgba(16, 185, 129, 0.15) !important;
+}
+
+.bg-rose-500\/20 {
+  background-color: rgba(244, 63, 94, 0.15) !important;
+}
+
+.bg-amber-500\/20 {
+  background-color: rgba(245, 158, 11, 0.15) !important;
+}
+
+.text-amber-400 {
+  color: #d97706 !important;
+}
+
+.text-cyan-400 {
+  color: #0891b2 !important;
+}
+
+.text-indigo-300, .text-indigo-400 {
+  color: #4f46e5 !important;
 }
 
 @keyframes marquee {
@@ -37,21 +126,21 @@ body {
   animation-play-state: paused;
 }
 
-/* Custom Financial Terminal Scrollbar */
+/* Custom Financial Terminal Light Scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #020617;
+  background: #f1f5f9;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #1e293b;
+  background: #cbd5e1;
   border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #334155;
+  background: #94a3b8;
 }
