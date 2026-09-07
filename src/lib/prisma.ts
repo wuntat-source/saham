@@ -8,19 +8,31 @@ const globalForPrisma = globalThis as unknown as {
 
 function getDatabaseUrl(): string {
   const envUrl = process.env.DATABASE_URL;
-  if (envUrl && !envUrl.startsWith('file:.')) {
+  if (envUrl && !envUrl.startsWith('file:')) {
     return envUrl;
   }
 
-  // Find exact absolute path on Windows
-  const prismaDbPath = path.resolve(process.cwd(), 'prisma', 'dev.db');
-  const rootDbPath = path.resolve(process.cwd(), 'dev.db');
+  // Candidate absolute locations for dev.db on Windows / server environments
+  const candidates = [
+    path.resolve(process.cwd(), 'prisma', 'dev.db'),
+    path.resolve(process.cwd(), 'dev.db'),
+    path.resolve(__dirname, '..', '..', 'prisma', 'dev.db'),
+    path.resolve(__dirname, '..', '..', 'dev.db'),
+    path.resolve(__dirname, '..', 'prisma', 'dev.db'),
+    'f:/Antigravity/saham/prisma/dev.db',
+    'f:/Antigravity/saham/dev.db',
+  ];
 
-  let targetPath = prismaDbPath;
-  if (fs.existsSync(prismaDbPath)) {
-    targetPath = prismaDbPath;
-  } else if (fs.existsSync(rootDbPath)) {
-    targetPath = rootDbPath;
+  let targetPath = candidates[0];
+  for (const candidate of candidates) {
+    try {
+      if (fs.existsSync(candidate)) {
+        targetPath = candidate;
+        break;
+      }
+    } catch {
+      // Continue searching
+    }
   }
 
   const normalized = targetPath.replace(/\\/g, '/');

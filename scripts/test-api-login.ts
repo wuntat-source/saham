@@ -1,16 +1,23 @@
-async function test() {
+async function testUser(email: string, pass: string) {
   try {
     const res = await fetch('http://localhost:3000/api/auth/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email: 'pidi', password: 'pidi123' }),
+      body: JSON.stringify({ email, password: pass }),
     });
-    console.log('HTTP Status:', res.status);
     const data = await res.json();
-    console.log('HTTP Response Body:', JSON.stringify(data, null, 2));
+    console.log(`[LOGIN] ${email} -> HTTP ${res.status} | Success: ${data.success} | Name: ${data.user?.name}`);
   } catch (e: any) {
-    console.error('Fetch error:', e.message);
+    console.error(`[LOGIN] ${email} -> Error:`, e.message);
   }
 }
 
-test();
+async function run() {
+  await testUser('pidi', 'pidi123');
+  await testUser('bampri', 'bampri123');
+  await testUser('guru@edutradex.id', 'guru123');
+  await testUser('siswa1@edutradex.id', 'siswa123');
+}
+
+run();
+
