@@ -133,63 +133,63 @@ export default function StudentDashboard() {
       {/* 4 Summary Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {/* Total Equity */}
-        <div className="bg-gradient-to-br from-slate-900 to-slate-850 border border-slate-800 rounded-2xl p-4 shadow-xl">
-          <div className="text-[10px] uppercase font-bold text-slate-400 tracking-wider mb-1">
+        <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-xs">
+          <div className="text-[10px] uppercase font-bold text-slate-500 tracking-wider mb-1">
             Total Ekuitas (Equity)
           </div>
-          <div className="text-xl sm:text-2xl font-black font-mono text-white">
+          <div className="text-xl sm:text-2xl font-black font-mono text-slate-900">
             Rp{totalEquity.toLocaleString('id-ID')}
           </div>
-          <div className="mt-2 text-[11px] text-slate-500">
+          <div className="mt-2 text-[11px] text-slate-500 font-medium">
             Kas + Nilai Pasar Saham
           </div>
         </div>
 
         {/* Cash Balance */}
-        <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 shadow-xl">
-          <div className="text-[10px] uppercase font-bold text-slate-400 tracking-wider mb-1">
+        <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-xs">
+          <div className="text-[10px] uppercase font-bold text-slate-500 tracking-wider mb-1">
             Saldo Kas Virtual
           </div>
-          <div className="text-xl sm:text-2xl font-black font-mono text-emerald-400">
+          <div className="text-xl sm:text-2xl font-black font-mono text-emerald-700">
             Rp{cashBalance.toLocaleString('id-ID')}
           </div>
-          <div className="mt-2 text-[11px] text-slate-500">
+          <div className="mt-2 text-[11px] text-slate-500 font-medium">
             Daya Beli Siap Transaksi
           </div>
         </div>
 
         {/* Floating P&L */}
-        <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 shadow-xl">
-          <div className="text-[10px] uppercase font-bold text-slate-400 tracking-wider mb-1">
+        <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-xs">
+          <div className="text-[10px] uppercase font-bold text-slate-500 tracking-wider mb-1">
             Floating P&L (Saham Aktif)
           </div>
           <div
             className={`text-xl sm:text-2xl font-black font-mono ${
-              unrealizedPnl >= 0 ? 'text-emerald-400' : 'text-rose-400'
+              unrealizedPnl >= 0 ? 'text-emerald-700' : 'text-rose-700'
             }`}
           >
             {unrealizedPnl >= 0 ? '+' : ''}Rp{unrealizedPnl.toLocaleString('id-ID')}
           </div>
-          <div className="mt-2 text-[11px] text-slate-500">
+          <div className="mt-2 text-[11px] text-slate-500 font-medium">
             Keuntungan Belum Direalisasi
           </div>
         </div>
 
         {/* Total Return ROI */}
-        <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 shadow-xl">
-          <div className="text-[10px] uppercase font-bold text-slate-400 tracking-wider mb-1">
+        <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-xs">
+          <div className="text-[10px] uppercase font-bold text-slate-500 tracking-wider mb-1">
             Total Return ROI (%)
           </div>
           <div
             className={`text-xl sm:text-2xl font-black font-mono inline-flex items-center gap-1 ${
-              returnPercent >= 0 ? 'text-emerald-400' : 'text-rose-400'
+              returnPercent >= 0 ? 'text-emerald-700' : 'text-rose-700'
             }`}
           >
             {returnPercent >= 0 ? <ArrowUpRight className="w-5 h-5" /> : <ArrowDownRight className="w-5 h-5" />}
             {returnPercent >= 0 ? '+' : ''}
             {returnPercent}%
           </div>
-          <div className="mt-2 text-[11px] text-slate-500">
+          <div className="mt-2 text-[11px] text-slate-500 font-medium">
             vs Modal Awal Rp100 Juta
           </div>
         </div>
@@ -198,15 +198,15 @@ export default function StudentDashboard() {
       {/* Grid: Top Holdings & Market Movers */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Top Holdings (7 cols) */}
-        <div className="lg:col-span-7 bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-xl space-y-4">
-          <div className="flex items-center justify-between border-b border-slate-800 pb-3">
-            <h2 className="text-base font-bold text-white flex items-center gap-2">
-              <PieChart className="w-5 h-5 text-emerald-400" />
+        <div className="lg:col-span-7 bg-white border border-slate-200 rounded-3xl p-6 shadow-xs space-y-4">
+          <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+            <h2 className="text-base font-bold text-slate-900 flex items-center gap-2">
+              <PieChart className="w-5 h-5 text-emerald-600" />
               Kepemilikan Saham Aktif ({portfolio?.holdings?.length || 0})
             </h2>
             <Link
               href="/portfolio"
-              className="text-xs text-emerald-400 hover:text-emerald-300 font-bold flex items-center gap-1"
+              className="text-xs text-emerald-700 hover:text-emerald-600 font-bold flex items-center gap-1"
             >
               <span>Lihat Detail</span>
               <ArrowRight className="w-3 h-3" />
@@ -220,29 +220,29 @@ export default function StudentDashboard() {
                 return (
                   <div
                     key={h.stock_code || (h as any).stockCode}
-                    className="flex items-center justify-between p-3 rounded-2xl bg-slate-950 border border-slate-800/80 hover:border-slate-700 transition-colors"
+                    className="flex items-center justify-between p-3 rounded-2xl bg-slate-50 border border-slate-200 hover:border-slate-300 transition-colors"
                   >
                     <div>
                       <div className="flex items-center space-x-2">
-                        <span className="font-mono font-bold text-white text-sm">
+                        <span className="font-mono font-bold text-slate-900 text-sm">
                           {h.stock_code || (h as any).stockCode}
                         </span>
-                        <span className="text-[10px] text-slate-400 bg-slate-900 px-2 py-0.5 rounded font-mono">
+                        <span className="text-[10px] text-slate-700 bg-slate-200/80 px-2 py-0.5 rounded font-mono font-semibold">
                           {h.lots} Lot
                         </span>
                       </div>
-                      <span className="text-[11px] text-slate-500 block truncate max-w-[160px]">
+                      <span className="text-[11px] text-slate-500 block truncate max-w-[160px] font-medium">
                         {h.name || (h as any).companyName}
                       </span>
                     </div>
 
                     <div className="text-right font-mono">
-                      <div className="text-xs font-bold text-white">
+                      <div className="text-xs font-bold text-slate-900">
                         Rp{(h.market_value || (h as any).marketValue || 0).toLocaleString('id-ID')}
                       </div>
                       <div
                         className={`text-[11px] font-bold ${
-                          isProfit ? 'text-emerald-400' : 'text-rose-400'
+                          isProfit ? 'text-emerald-700' : 'text-rose-700'
                         }`}
                       >
                         {isProfit ? '+' : ''}Rp
@@ -254,9 +254,9 @@ export default function StudentDashboard() {
               })}
             </div>
           ) : (
-            <div className="text-center py-10 text-slate-500 text-xs">
+            <div className="text-center py-10 text-slate-500 text-xs font-medium">
               Belum ada saham yang Anda miliki saat ini.{' '}
-              <Link href="/market" className="text-emerald-400 font-bold hover:underline block mt-1">
+              <Link href="/market" className="text-emerald-700 font-bold hover:underline block mt-1">
                 Jelajahi Pasar & Beli Saham
               </Link>
             </div>
@@ -265,15 +265,15 @@ export default function StudentDashboard() {
 
         {/* Market Movers & Quick Action (5 cols) */}
         <div className="lg:col-span-5 space-y-6">
-          <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-xl space-y-4">
-            <div className="flex items-center justify-between border-b border-slate-800 pb-3">
-              <h2 className="text-base font-bold text-white flex items-center gap-2">
-                <Activity className="w-5 h-5 text-emerald-400" />
+          <div className="bg-white border border-slate-200 rounded-3xl p-6 shadow-xs space-y-4">
+            <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+              <h2 className="text-base font-bold text-slate-900 flex items-center gap-2">
+                <Activity className="w-5 h-5 text-emerald-600" />
                 Pergerakan Pasar Terkini
               </h2>
               <Link
                 href="/market"
-                className="text-xs text-slate-400 hover:text-white font-bold flex items-center gap-1"
+                className="text-xs text-slate-500 hover:text-slate-900 font-bold flex items-center gap-1"
               >
                 <span>Semua</span>
                 <ArrowRight className="w-3 h-3" />
@@ -285,17 +285,17 @@ export default function StudentDashboard() {
                 <Link
                   key={q.ticker}
                   href={`/stock/${q.ticker}`}
-                  className="flex items-center justify-between p-2.5 rounded-xl bg-slate-950/80 hover:bg-slate-800 transition-colors"
+                  className="flex items-center justify-between p-2.5 rounded-xl bg-slate-50 hover:bg-slate-100 border border-slate-200 transition-colors"
                 >
                   <div className="flex items-center space-x-2.5">
-                    <span className="font-mono font-bold text-white text-xs">{q.ticker}</span>
-                    <span className="text-[10px] text-slate-500 truncate max-w-[110px]">{q.name}</span>
+                    <span className="font-mono font-bold text-slate-900 text-xs">{q.ticker}</span>
+                    <span className="text-[10px] text-slate-500 truncate max-w-[110px] font-medium">{q.name}</span>
                   </div>
                   <div className="text-right font-mono">
-                    <div className="text-xs text-white">Rp{q.price.toLocaleString('id-ID')}</div>
+                    <div className="text-xs font-bold text-slate-900">Rp{q.price.toLocaleString('id-ID')}</div>
                     <div
                       className={`text-[10px] font-bold ${
-                        q.change >= 0 ? 'text-emerald-400' : 'text-rose-400'
+                        q.change >= 0 ? 'text-emerald-700' : 'text-rose-700'
                       }`}
                     >
                       {q.change >= 0 ? '+' : ''}
@@ -308,14 +308,14 @@ export default function StudentDashboard() {
           </div>
 
           {/* Quick Trade CTA Card */}
-          <div className="bg-gradient-to-r from-emerald-950/30 to-slate-900 border border-emerald-500/30 rounded-3xl p-5 shadow-xl flex items-center justify-between">
+          <div className="bg-gradient-to-r from-emerald-50 to-teal-50 border border-emerald-200 rounded-3xl p-5 shadow-xs flex items-center justify-between">
             <div className="space-y-1">
-              <h3 className="text-sm font-bold text-white">Mulai Trading Virtual</h3>
-              <p className="text-[11px] text-slate-400">Eksekusi order beli & jual dengan data harga riil.</p>
+              <h3 className="text-sm font-bold text-slate-900">Mulai Trading Virtual</h3>
+              <p className="text-[11px] text-slate-600 font-medium">Eksekusi order beli & jual dengan data harga riil.</p>
             </div>
             <Link
               href="/market"
-              className="px-4 py-2 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs rounded-xl transition-all shadow-md shadow-emerald-500/20"
+              className="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-xl transition-all shadow-sm shadow-emerald-600/20"
             >
               Buka Pasar
             </Link>
@@ -324,15 +324,15 @@ export default function StudentDashboard() {
       </div>
 
       {/* Recent Trades Table */}
-      <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-xl space-y-4">
-        <div className="flex items-center justify-between border-b border-slate-800 pb-3">
-          <h2 className="text-base font-bold text-white flex items-center gap-2">
-            <History className="w-5 h-5 text-emerald-400" />
+      <div className="bg-white border border-slate-200 rounded-3xl p-6 shadow-xs space-y-4">
+        <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+          <h2 className="text-base font-bold text-slate-900 flex items-center gap-2">
+            <History className="w-5 h-5 text-emerald-600" />
             Histori Transaksi Terakhir
           </h2>
           <Link
             href="/trade-history"
-            className="text-xs text-emerald-400 hover:text-emerald-300 font-bold flex items-center gap-1"
+            className="text-xs text-emerald-700 hover:text-emerald-600 font-bold flex items-center gap-1"
           >
             <span>Lihat Semua Transaksi</span>
             <ArrowRight className="w-3 h-3" />
@@ -343,7 +343,7 @@ export default function StudentDashboard() {
           <div className="overflow-x-auto">
             <table className="w-full text-xs text-left font-mono">
               <thead>
-                <tr className="border-b border-slate-800 text-[10px] uppercase text-slate-400">
+                <tr className="border-b border-slate-200 text-[10px] uppercase text-slate-500 font-bold">
                   <th className="py-2.5 px-3">Tipe</th>
                   <th className="py-2.5 px-3">Ticker</th>
                   <th className="py-2.5 px-3">Jumlah Lot</th>
@@ -354,30 +354,30 @@ export default function StudentDashboard() {
                   <th className="py-2.5 px-3">Waktu</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-800/60">
+              <tbody className="divide-y divide-slate-100">
                 {recentTrades.map((t) => (
-                  <tr key={t.id} className="hover:bg-slate-850/50">
+                  <tr key={t.id} className="hover:bg-slate-50 transition-colors">
                     <td className="py-2.5 px-3">
                       <span
                         className={`px-2 py-0.5 rounded text-[10px] font-bold ${
                           t.type === 'BUY'
-                            ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
-                            : 'bg-rose-500/20 text-rose-400 border border-rose-500/30'
+                            ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
+                            : 'bg-rose-50 text-rose-700 border border-rose-200'
                         }`}
                       >
                         {t.type}
                       </span>
                     </td>
-                    <td className="py-2.5 px-3 text-white font-bold">{t.stock_code}</td>
-                    <td className="py-2.5 px-3 text-slate-300">{t.lot_quantity} Lot</td>
-                    <td className="py-2.5 px-3 text-slate-300">Rp{t.price.toLocaleString('id-ID')}</td>
-                    <td className="py-2.5 px-3 text-slate-400">Rp{t.broker_fee.toLocaleString('id-ID')}</td>
-                    <td className="py-2.5 px-3 text-white font-bold">
+                    <td className="py-2.5 px-3 text-slate-900 font-bold">{t.stock_code}</td>
+                    <td className="py-2.5 px-3 text-slate-700 font-semibold">{t.lot_quantity} Lot</td>
+                    <td className="py-2.5 px-3 text-slate-700">Rp{t.price.toLocaleString('id-ID')}</td>
+                    <td className="py-2.5 px-3 text-slate-500">Rp{t.broker_fee.toLocaleString('id-ID')}</td>
+                    <td className="py-2.5 px-3 text-slate-900 font-bold">
                       Rp{t.total_settlement.toLocaleString('id-ID')}
                     </td>
                     <td
                       className={`py-2.5 px-3 font-bold ${
-                        t.realized_pnl >= 0 ? 'text-emerald-400' : 'text-rose-400'
+                        t.realized_pnl >= 0 ? 'text-emerald-700' : 'text-rose-700'
                       }`}
                     >
                       {t.type === 'SELL'
@@ -398,7 +398,7 @@ export default function StudentDashboard() {
             </table>
           </div>
         ) : (
-          <div className="text-center py-6 text-slate-500 text-xs">
+          <div className="text-center py-6 text-slate-500 text-xs font-medium">
             Belum ada transaksi perdagangan.
           </div>
         )}

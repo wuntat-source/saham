@@ -19,92 +19,171 @@ body {
 }
 
 /* Light Theme Harmonization for All Pages & Panels */
-.bg-slate-950 {
-  background-color: #f1f5f9;
+.bg-slate-950,
+[class*="bg-slate-950"] {
+  background-color: #f8fafc !important;
 }
 
-.bg-slate-900 {
-  background-color: #ffffff;
+.bg-slate-900,
+[class*="bg-slate-900"] {
+  background-color: #ffffff !important;
+  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.05);
 }
 
-.bg-slate-850 {
-  background-color: #f8fafc;
+.bg-slate-850,
+[class*="bg-slate-850"] {
+  background-color: #f1f5f9 !important;
 }
 
-.bg-slate-800 {
-  background-color: #f1f5f9;
+.bg-slate-800,
+[class*="bg-slate-800"] {
+  background-color: #f1f5f9 !important;
 }
 
+/* Hover States for list items and table rows */
+.hover\:bg-slate-800:hover,
+.hover\:bg-slate-850:hover,
+.hover\:bg-slate-900:hover,
+.hover\:bg-slate-950:hover,
+[class*="hover:bg-slate-8"]:hover,
+[class*="hover:bg-slate-9"]:hover {
+  background-color: #e2e8f0 !important;
+}
+
+/* Borders */
+.border-slate-900,
 .border-slate-800,
-.border-slate-800\/80,
-.border-slate-800\/60 {
-  border-color: #e2e8f0;
-}
-
 .border-slate-700,
-.border-slate-700\/80 {
-  border-color: #cbd5e1;
+[class*="border-slate-8"],
+[class*="border-slate-7"] {
+  border-color: #e2e8f0 !important;
 }
 
 /* Typography contrast adjustments */
-h1.text-white, h2.text-white, h3.text-white, h4.text-white, span.text-white, div.text-white, b.text-white {
-  color: #0f172a;
+h1, h2, h3, h4, h5, h6 {
+  color: #0f172a !important;
 }
 
+.text-white,
+[class*="text-white"] {
+  color: #0f172a !important;
+}
+
+.text-slate-100,
 .text-slate-200 {
-  color: #1e293b;
+  color: #1e293b !important;
 }
 
 .text-slate-300 {
-  color: #334155;
+  color: #334155 !important;
 }
 
 .text-slate-400 {
-  color: #64748b;
+  color: #475569 !important;
 }
 
 .text-slate-500 {
-  color: #64748b;
+  color: #64748b !important;
 }
 
-/* Preserve contrast inside colored buttons and badges */
-button.bg-emerald-500, button.bg-emerald-600, 
-button.bg-rose-500, button.bg-rose-600,
-button.bg-indigo-600, button.bg-blue-600 {
+.text-slate-600 {
+  color: #475569 !important;
+}
+
+/* Deep, High-Contrast Financial Colors (Legible on light backgrounds) */
+.text-emerald-400,
+.text-emerald-500 {
+  color: #047857 !important; /* Emerald 700 */
+}
+
+.text-rose-400,
+.text-rose-500 {
+  color: #be123c !important; /* Rose 700 */
+}
+
+.text-amber-400,
+.text-amber-500 {
+  color: #b45309 !important; /* Amber 700 */
+}
+
+.text-cyan-400,
+.text-cyan-500 {
+  color: #0e7490 !important; /* Cyan 700 */
+}
+
+.text-indigo-300,
+.text-indigo-400,
+.text-indigo-500 {
+  color: #4338ca !important; /* Indigo 700 */
+}
+
+/* Badges & Soft Highlight Backgrounds */
+.bg-emerald-500\/20,
+.bg-emerald-500\/10,
+.bg-emerald-500\/15 {
+  background-color: #d1fae5 !important; /* Emerald 100 */
+  border-color: #a7f3d0 !important;
+}
+
+.bg-rose-500\/20,
+.bg-rose-500\/10,
+.bg-rose-500\/15 {
+  background-color: #ffe4e6 !important; /* Rose 100 */
+  border-color: #fecdd3 !important;
+}
+
+.bg-amber-500\/20,
+.bg-amber-500\/10,
+.bg-amber-500\/15 {
+  background-color: #fef3c7 !important; /* Amber 100 */
+  border-color: #fde68a !important;
+}
+
+.bg-indigo-500\/20,
+.bg-indigo-500\/10,
+.bg-indigo-600\/30 {
+  background-color: #e0e7ff !important; /* Indigo 100 */
+  border-color: #c7d2fe !important;
+}
+
+/* Buttons & Elements that MUST keep white text */
+button[class*="bg-emerald-"],
+button[class*="bg-rose-"],
+button[class*="bg-indigo-"],
+button[class*="bg-blue-"],
+a[class*="bg-emerald-"],
+a[class*="bg-rose-"],
+a[class*="bg-indigo-"],
+a[class*="bg-blue-"],
+.bg-emerald-500,
+.bg-emerald-600,
+.bg-rose-500,
+.bg-rose-600,
+.bg-indigo-600,
+.bg-blue-600 {
   color: #ffffff !important;
 }
 
-/* Keep primary emerald & rose financial colors crisp */
-.text-emerald-400 {
-  color: #059669 !important;
+button[class*="bg-emerald-"] *,
+button[class*="bg-rose-"] *,
+button[class*="bg-indigo-"] *,
+button[class*="bg-blue-"] *,
+a[class*="bg-emerald-"] *,
+a[class*="bg-rose-"] *,
+a[class*="bg-indigo-"] *,
+a[class*="bg-blue-"] * {
+  color: #ffffff !important;
 }
 
-.text-rose-400 {
-  color: #e11d48 !important;
+/* Inputs & Form controls */
+input, select, textarea {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+  border-color: #cbd5e1 !important;
 }
 
-.bg-emerald-500\/20 {
-  background-color: rgba(16, 185, 129, 0.15) !important;
-}
-
-.bg-rose-500\/20 {
-  background-color: rgba(244, 63, 94, 0.15) !important;
-}
-
-.bg-amber-500\/20 {
-  background-color: rgba(245, 158, 11, 0.15) !important;
-}
-
-.text-amber-400 {
-  color: #d97706 !important;
-}
-
-.text-cyan-400 {
-  color: #0891b2 !important;
-}
-
-.text-indigo-300, .text-indigo-400 {
-  color: #4f46e5 !important;
+input::placeholder, textarea::placeholder {
+  color: #94a3b8 !important;
 }
 
 @keyframes marquee {

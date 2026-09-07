@@ -132,18 +132,18 @@ export default function PortfolioPage() {
       {/* 3 Metric Summary Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
         {/* Total Equity */}
-        <div className="bg-gradient-to-br from-slate-900 to-slate-850 border border-slate-800 rounded-2xl p-5 shadow-xl relative overflow-hidden">
-          <div className="text-xs uppercase font-bold text-slate-400 tracking-wider mb-1">
+        <div className="bg-white border border-slate-200 rounded-2xl p-5 shadow-xs relative overflow-hidden">
+          <div className="text-xs uppercase font-bold text-slate-500 tracking-wider mb-1">
             Total Ekuitas (Total Equity)
           </div>
-          <div className="text-2xl sm:text-3xl font-black font-mono text-white">
+          <div className="text-2xl sm:text-3xl font-black font-mono text-slate-900">
             Rp{totalEq.toLocaleString('id-ID')}
           </div>
-          <div className="mt-3 flex items-center justify-between text-xs pt-2 border-t border-slate-800">
-            <span className="text-slate-500">Return vs Modal Awal:</span>
+          <div className="mt-3 flex items-center justify-between text-xs pt-2 border-t border-slate-100">
+            <span className="text-slate-500 font-medium">Return vs Modal Awal:</span>
             <span
               className={`font-mono font-bold inline-flex items-center gap-0.5 ${
-                returnPct >= 0 ? 'text-emerald-400' : 'text-rose-400'
+                returnPct >= 0 ? 'text-emerald-700' : 'text-rose-700'
               }`}
             >
               {returnPct >= 0 ? '+' : ''}
@@ -153,36 +153,36 @@ export default function PortfolioPage() {
         </div>
 
         {/* Cash Balance */}
-        <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-xl">
-          <div className="text-xs uppercase font-bold text-slate-400 tracking-wider mb-1">
+        <div className="bg-white border border-slate-200 rounded-2xl p-5 shadow-xs">
+          <div className="text-xs uppercase font-bold text-slate-500 tracking-wider mb-1">
             Saldo Kas Tersedia
           </div>
-          <div className="text-2xl sm:text-3xl font-black font-mono text-emerald-400">
+          <div className="text-2xl sm:text-3xl font-black font-mono text-emerald-700">
             Rp{(data?.cash ?? 100000000).toLocaleString('id-ID')}
           </div>
-          <div className="mt-3 flex items-center justify-between text-xs pt-2 border-t border-slate-800">
-            <span className="text-slate-500">Daya Beli (Buying Power):</span>
-            <span className="font-mono text-slate-300 font-semibold">100% Kas Riil</span>
+          <div className="mt-3 flex items-center justify-between text-xs pt-2 border-t border-slate-100">
+            <span className="text-slate-500 font-medium">Daya Beli (Buying Power):</span>
+            <span className="font-mono text-slate-700 font-semibold">100% Kas Riil</span>
           </div>
         </div>
 
         {/* Floating Gain/Loss */}
-        <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-xl">
-          <div className="text-xs uppercase font-bold text-slate-400 tracking-wider mb-1">
+        <div className="bg-white border border-slate-200 rounded-2xl p-5 shadow-xs">
+          <div className="text-xs uppercase font-bold text-slate-500 tracking-wider mb-1">
             Floating P&L (Saham Aktif)
           </div>
           <div
             className={`text-2xl sm:text-3xl font-black font-mono ${
-              floatingPnl >= 0 ? 'text-emerald-400' : 'text-rose-400'
+              floatingPnl >= 0 ? 'text-emerald-700' : 'text-rose-700'
             }`}
           >
             {floatingPnl >= 0 ? '+' : ''}Rp{floatingPnl.toLocaleString('id-ID')}
           </div>
-          <div className="mt-3 flex items-center justify-between text-xs pt-2 border-t border-slate-800">
-            <span className="text-slate-500">Persentase Floating:</span>
+          <div className="mt-3 flex items-center justify-between text-xs pt-2 border-t border-slate-100">
+            <span className="text-slate-500 font-medium">Persentase Floating:</span>
             <span
               className={`font-mono font-bold ${
-                floatingPnlPct >= 0 ? 'text-emerald-400' : 'text-rose-400'
+                floatingPnlPct >= 0 ? 'text-emerald-700' : 'text-rose-700'
               }`}
             >
               {floatingPnlPct >= 0 ? '+' : ''}
@@ -194,17 +194,17 @@ export default function PortfolioPage() {
 
       {/* Phase 3: Portfolio Health & Diversification Intelligence */}
       {analytics && (
-        <div className="bg-gradient-to-r from-slate-900 via-slate-850 to-slate-900 border border-slate-800 rounded-3xl p-6 shadow-2xl space-y-5">
-          <div className="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-slate-800/80">
+        <div className="bg-white border border-slate-200 rounded-3xl p-6 shadow-xs space-y-5">
+          <div className="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-slate-100">
             <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 rounded-2xl bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
+              <div className="w-10 h-10 rounded-2xl bg-emerald-50 border border-emerald-200 flex items-center justify-center text-emerald-700">
                 <ShieldCheck className="w-5 h-5" />
               </div>
               <div>
-                <span className="text-[10px] uppercase font-bold text-slate-400 font-mono block">
+                <span className="text-[10px] uppercase font-bold text-slate-500 font-mono block">
                   AI Portfolio Health Engine
                 </span>
-                <h3 className="text-lg font-black text-white">
+                <h3 className="text-lg font-black text-slate-900">
                   Kesehatan & Diversifikasi Portofolio
                 </h3>
               </div>
@@ -212,15 +212,15 @@ export default function PortfolioPage() {
 
             <div className="flex items-center space-x-3 font-mono text-xs">
               <div className="text-right">
-                <span className="text-[10px] text-slate-500 uppercase block">Health Score</span>
-                <span className="text-emerald-400 font-black text-xl">
+                <span className="text-[10px] text-slate-500 uppercase block font-semibold">Health Score</span>
+                <span className="text-emerald-700 font-black text-xl">
                   {analytics.healthScore}
                   <span className="text-xs font-normal text-slate-500">/100</span>
                 </span>
               </div>
-              <div className="text-right pl-3 border-l border-slate-800">
-                <span className="text-[10px] text-slate-500 uppercase block">Diversifikasi</span>
-                <span className="text-slate-200 font-bold text-sm">
+              <div className="text-right pl-3 border-l border-slate-200">
+                <span className="text-[10px] text-slate-500 uppercase block font-semibold">Diversifikasi</span>
+                <span className="text-slate-800 font-bold text-sm">
                   {analytics.diversificationScore}/100
                 </span>
               </div>
@@ -229,39 +229,39 @@ export default function PortfolioPage() {
 
           {/* Metrics Grid */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3.5 font-mono text-xs">
-            <div className="bg-slate-950/70 p-3 rounded-2xl border border-slate-800">
-              <span className="text-[10px] text-slate-500 uppercase block">Rasio Kas (Cash Buffer)</span>
-              <span className="text-white font-bold text-sm mt-0.5 block">{analytics.cashRatioPct}%</span>
+            <div className="bg-slate-50 p-3 rounded-2xl border border-slate-200">
+              <span className="text-[10px] text-slate-500 uppercase block font-semibold">Rasio Kas (Cash Buffer)</span>
+              <span className="text-slate-900 font-bold text-sm mt-0.5 block">{analytics.cashRatioPct}%</span>
             </div>
-            <div className="bg-slate-950/70 p-3 rounded-2xl border border-slate-800">
-              <span className="text-[10px] text-slate-500 uppercase block">Sektor Terdiversifikasi</span>
-              <span className="text-slate-200 font-bold text-sm mt-0.5 block">
+            <div className="bg-slate-50 p-3 rounded-2xl border border-slate-200">
+              <span className="text-[10px] text-slate-500 uppercase block font-semibold">Sektor Terdiversifikasi</span>
+              <span className="text-slate-800 font-bold text-sm mt-0.5 block">
                 {analytics.sectorConcentration.length} Sektor
               </span>
             </div>
-            <div className="bg-slate-950/70 p-3 rounded-2xl border border-slate-800">
-              <span className="text-[10px] text-slate-500 uppercase block">Herfindahl Index (HHI)</span>
-              <span className="text-slate-200 font-bold text-sm mt-0.5 block">
+            <div className="bg-slate-50 p-3 rounded-2xl border border-slate-200">
+              <span className="text-[10px] text-slate-500 uppercase block font-semibold">Herfindahl Index (HHI)</span>
+              <span className="text-slate-800 font-bold text-sm mt-0.5 block">
                 {analytics.herfindahlIndex} ({analytics.herfindahlIndex < 0.3 ? 'Merata' : 'Terkonsentrasi'})
               </span>
             </div>
-            <div className="bg-slate-950/70 p-3 rounded-2xl border border-slate-800">
-              <span className="text-[10px] text-slate-500 uppercase block">Estimasi Volatilitas</span>
-              <span className="text-teal-400 font-bold text-sm mt-0.5 block">
+            <div className="bg-slate-50 p-3 rounded-2xl border border-slate-200">
+              <span className="text-[10px] text-slate-500 uppercase block font-semibold">Estimasi Volatilitas</span>
+              <span className="text-teal-700 font-bold text-sm mt-0.5 block">
                 {analytics.portfolioVolatilityPct}%
               </span>
             </div>
           </div>
 
           {/* AI Optimization Suggestions */}
-          <div className="bg-slate-950/60 p-4 rounded-2xl border border-slate-800/80 space-y-2 font-sans text-xs">
-            <span className="font-bold text-amber-400 font-mono text-[10px] uppercase block">
+          <div className="bg-slate-50 p-4 rounded-2xl border border-slate-200 space-y-2 font-sans text-xs">
+            <span className="font-bold text-amber-700 font-mono text-[10px] uppercase block">
               💡 Rekomendasi Optimasi Portofolio AI:
             </span>
-            <div className="space-y-1 text-slate-300">
+            <div className="space-y-1 text-slate-700">
               {analytics.optimizationSuggestions.map((sug, i) => (
                 <div key={i} className="flex items-start space-x-2">
-                  <span className="text-emerald-400 font-bold">•</span>
+                  <span className="text-emerald-700 font-bold">•</span>
                   <span>{sug}</span>
                 </div>
               ))}
@@ -271,16 +271,16 @@ export default function PortfolioPage() {
       )}
 
       {/* Active Holdings Table */}
-      <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-xl space-y-4">
-        <div className="flex items-center justify-between border-b border-slate-800 pb-3">
-          <h2 className="text-base font-bold text-white flex items-center gap-2">
-            <TrendingUp className="w-5 h-5 text-emerald-400" />
+      <div className="bg-white border border-slate-200 rounded-3xl p-6 shadow-xs space-y-4">
+        <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+          <h2 className="text-base font-bold text-slate-900 flex items-center gap-2">
+            <TrendingUp className="w-5 h-5 text-emerald-600" />
             Daftar Aset Saham Aktif ({data?.holdings?.length || 0})
           </h2>
           <button
             onClick={fetchPortfolio}
             title="Refresh Portofolio"
-            className="p-1.5 text-slate-400 hover:text-emerald-400 hover:bg-slate-800 rounded-lg transition-colors"
+            className="p-1.5 text-slate-500 hover:text-emerald-700 hover:bg-slate-100 rounded-lg transition-colors cursor-pointer"
           >
             <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
           </button>
@@ -290,7 +290,7 @@ export default function PortfolioPage() {
           <div className="overflow-x-auto">
             <table className="w-full text-xs text-left font-mono">
               <thead>
-                <tr className="border-b border-slate-800 text-[10px] uppercase text-slate-400">
+                <tr className="border-b border-slate-200 text-[10px] uppercase text-slate-500 font-bold">
                   <th className="py-3 px-3">Emiten</th>
                   <th className="py-3 px-3">Jumlah Lot</th>
                   <th className="py-3 px-3">Harga Beli Rata-Rata</th>
@@ -301,41 +301,41 @@ export default function PortfolioPage() {
                   <th className="py-3 px-3 text-right">Aksi Cepat</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-800/60">
+              <tbody className="divide-y divide-slate-100">
                 {data.holdings.map((h) => (
-                  <tr key={h.stockCode} className="hover:bg-slate-850/50 transition-colors">
+                  <tr key={h.stockCode} className="hover:bg-slate-50 transition-colors">
                     <td className="py-3 px-3">
                       <Link
                         href={`/trade/${h.stockCode}`}
                         className="flex items-center space-x-2 group"
                       >
-                        <span className="font-bold text-sm text-white group-hover:text-emerald-400 transition-colors">
+                        <span className="font-bold text-sm text-slate-900 group-hover:text-emerald-700 transition-colors">
                           {h.stockCode}
                         </span>
-                        <ExternalLink className="w-3 h-3 text-slate-500 group-hover:text-emerald-400" />
+                        <ExternalLink className="w-3 h-3 text-slate-400 group-hover:text-emerald-700" />
                       </Link>
-                      <span className="text-[10px] text-slate-400 font-sans block truncate max-w-[150px]">
+                      <span className="text-[10px] text-slate-500 font-sans block truncate max-w-[150px] font-medium">
                         {h.companyName}
                       </span>
                     </td>
-                    <td className="py-3 px-3 text-white font-bold">
+                    <td className="py-3 px-3 text-slate-900 font-bold">
                       {h.lots} Lot
                       <span className="text-[10px] text-slate-500 block font-normal">
                         {h.totalShares.toLocaleString('id-ID')} lembar
                       </span>
                     </td>
-                    <td className="py-3 px-3 text-slate-300">
+                    <td className="py-3 px-3 text-slate-700">
                       Rp{h.avgBuyPrice.toLocaleString('id-ID')}
                     </td>
-                    <td className="py-3 px-3 font-bold text-white">
+                    <td className="py-3 px-3 font-bold text-slate-900">
                       Rp{h.currentPrice.toLocaleString('id-ID')}
                     </td>
-                    <td className="py-3 px-3 font-bold text-slate-200">
+                    <td className="py-3 px-3 font-bold text-slate-900">
                       Rp{h.marketValue.toLocaleString('id-ID')}
                     </td>
                     <td
                       className={`py-3 px-3 font-bold ${
-                        h.unrealizedPnl >= 0 ? 'text-emerald-400' : 'text-rose-400'
+                        h.unrealizedPnl >= 0 ? 'text-emerald-700' : 'text-rose-700'
                       }`}
                     >
                       {h.unrealizedPnl >= 0 ? '+' : ''}Rp{h.unrealizedPnl.toLocaleString('id-ID')}
@@ -344,8 +344,8 @@ export default function PortfolioPage() {
                       <span
                         className={`inline-flex items-center text-xs font-bold px-2 py-0.5 rounded ${
                           h.unrealizedPnlPct >= 0
-                            ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
-                            : 'bg-rose-500/20 text-rose-400 border border-rose-500/30'
+                            ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
+                            : 'bg-rose-50 text-rose-700 border border-rose-200'
                         }`}
                       >
                         {h.unrealizedPnlPct >= 0 ? '+' : ''}
@@ -356,13 +356,13 @@ export default function PortfolioPage() {
                       <div className="flex items-center justify-end space-x-2 font-sans">
                         <button
                           onClick={() => setSellingStock(h)}
-                          className="px-3 py-1.5 rounded-lg bg-rose-500/20 hover:bg-rose-500/30 text-rose-300 border border-rose-500/40 text-xs font-bold transition-all"
+                          className="px-3 py-1.5 rounded-lg bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 text-xs font-bold transition-all cursor-pointer"
                         >
                           Jual
                         </button>
                         <Link
                           href={`/trade/${h.stockCode}`}
-                          className="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold transition-all"
+                          className="px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200 text-xs font-semibold transition-all"
                         >
                           Trade
                         </Link>
@@ -375,13 +375,13 @@ export default function PortfolioPage() {
           </div>
         ) : (
           <div className="text-center py-12 space-y-3">
-            <PieChart className="w-12 h-12 text-slate-600 mx-auto" />
-            <div className="text-slate-400 text-xs">
+            <PieChart className="w-12 h-12 text-slate-400 mx-auto" />
+            <div className="text-slate-500 text-xs font-medium">
               Belum ada saham dalam portofolio Anda.
             </div>
             <Link
               href="/trade/BBCA"
-              className="inline-block px-4 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 text-xs font-bold"
+              className="inline-block px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold shadow-xs"
             >
               Mulai Beli Saham IDX
             </Link>

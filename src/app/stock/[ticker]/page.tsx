@@ -101,19 +101,19 @@ export default function StockPage({ params }: StockPageProps) {
   return (
     <div className="space-y-6 pb-16">
       {/* Ticker Quick Switcher Bar */}
-      <div className="flex items-center justify-between bg-slate-900 border border-slate-800 rounded-2xl p-3 shadow-lg overflow-x-auto gap-2">
+      <div className="flex items-center justify-between bg-white border border-slate-200 rounded-2xl p-3 shadow-xs overflow-x-auto gap-2">
         <div className="flex items-center space-x-1.5 shrink-0">
-          <span className="text-xs font-bold text-slate-400 uppercase tracking-wider px-2">
+          <span className="text-xs font-bold text-slate-500 uppercase tracking-wider px-2">
             Pilih Emiten:
           </span>
           {STOCKS.slice(0, 12).map((s) => (
             <button
               key={s.ticker}
               onClick={() => router.push(`/stock/${s.ticker}`)}
-              className={`px-3 py-1.5 rounded-xl text-xs font-mono font-bold transition-all ${
+              className={`px-3 py-1.5 rounded-xl text-xs font-mono font-bold transition-all cursor-pointer ${
                 s.ticker === currentTicker
-                  ? 'bg-emerald-500 text-slate-950 shadow-md shadow-emerald-500/20 scale-105'
-                  : 'bg-slate-950 text-slate-300 hover:text-white hover:bg-slate-800 border border-slate-800'
+                  ? 'bg-emerald-600 text-white shadow-xs scale-105'
+                  : 'bg-slate-50 text-slate-700 hover:text-slate-900 hover:bg-slate-100 border border-slate-200'
               }`}
             >
               {s.ticker}
@@ -127,29 +127,29 @@ export default function StockPage({ params }: StockPageProps) {
         {/* Left Section (8 cols) */}
         <div className="lg:col-span-8 space-y-6">
           {/* Stock Header Card */}
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-xl flex flex-wrap items-center justify-between gap-4">
+          <div className="bg-white border border-slate-200 rounded-2xl p-5 shadow-xs flex flex-wrap items-center justify-between gap-4">
             <div className="flex items-center space-x-4">
-              <div className="w-12 h-12 rounded-2xl bg-slate-950 border border-slate-700 flex items-center justify-center font-mono font-black text-xl text-emerald-400">
+              <div className="w-12 h-12 rounded-2xl bg-emerald-50 border border-emerald-200 flex items-center justify-center font-mono font-black text-xl text-emerald-700 shadow-xs">
                 {currentTicker.slice(0, 2)}
               </div>
               <div>
                 <div className="flex items-center space-x-2">
-                  <h1 className="text-2xl font-black text-white font-mono">{currentTicker}</h1>
-                  <span className="text-[11px] bg-slate-800 text-slate-300 px-2 py-0.5 rounded-md font-semibold">
+                  <h1 className="text-2xl font-black text-slate-900 font-mono">{currentTicker}</h1>
+                  <span className="text-[11px] bg-slate-100 text-slate-700 px-2 py-0.5 rounded-md font-semibold border border-slate-200">
                     {quote?.sector || 'BEI'}
                   </span>
                 </div>
-                <p className="text-xs text-slate-400 font-medium">{quote?.name}</p>
+                <p className="text-xs text-slate-500 font-medium">{quote?.name}</p>
               </div>
             </div>
 
             <div className="text-right">
-              <div className="text-2xl font-black font-mono text-white">
+              <div className="text-2xl font-black font-mono text-slate-900">
                 Rp{currentPrice.toLocaleString('id-ID')}
               </div>
               <div
                 className={`text-xs font-mono font-bold inline-flex items-center gap-0.5 ${
-                  ((quote?.change ?? 0) >= 0) ? 'text-emerald-400' : 'text-rose-400'
+                  ((quote?.change ?? 0) >= 0) ? 'text-emerald-700' : 'text-rose-700'
                 }`}
               >
                 {(quote?.change ?? 0) >= 0 ? (
@@ -172,59 +172,59 @@ export default function StockPage({ params }: StockPageProps) {
           />
 
           {/* Key Metrics Grid */}
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-xl">
-            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3 flex items-center gap-1.5">
-              <Activity className="w-4 h-4 text-emerald-400" />
+          <div className="bg-white border border-slate-200 rounded-2xl p-5 shadow-xs">
+            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-700 mb-3 flex items-center gap-1.5">
+              <Activity className="w-4 h-4 text-emerald-600" />
               Statistik Informasi Saham
             </h3>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-xs font-mono">
-              <div className="bg-slate-950 p-3 rounded-xl border border-slate-800">
-                <div className="text-[10px] text-slate-500 uppercase">Open (Pembukaan)</div>
-                <div className="text-slate-200 font-bold mt-0.5">
+              <div className="bg-slate-50 p-3 rounded-xl border border-slate-200">
+                <div className="text-[10px] text-slate-500 uppercase font-semibold">Open (Pembukaan)</div>
+                <div className="text-slate-900 font-bold mt-0.5">
                   Rp{(quote?.open ?? stockMeta?.basePrice ?? 0).toLocaleString('id-ID')}
                 </div>
               </div>
-              <div className="bg-slate-950 p-3 rounded-xl border border-slate-800">
-                <div className="text-[10px] text-slate-500 uppercase">High (Tertinggi)</div>
-                <div className="text-emerald-400 font-bold mt-0.5">
+              <div className="bg-slate-50 p-3 rounded-xl border border-slate-200">
+                <div className="text-[10px] text-slate-500 uppercase font-semibold">High (Tertinggi)</div>
+                <div className="text-emerald-700 font-bold mt-0.5">
                   Rp{(quote?.high ?? stockMeta?.basePrice ?? 0).toLocaleString('id-ID')}
                 </div>
               </div>
-              <div className="bg-slate-950 p-3 rounded-xl border border-slate-800">
-                <div className="text-[10px] text-slate-500 uppercase">Low (Terendah)</div>
-                <div className="text-rose-400 font-bold mt-0.5">
+              <div className="bg-slate-50 p-3 rounded-xl border border-slate-200">
+                <div className="text-[10px] text-slate-500 uppercase font-semibold">Low (Terendah)</div>
+                <div className="text-rose-700 font-bold mt-0.5">
                   Rp{(quote?.low ?? stockMeta?.basePrice ?? 0).toLocaleString('id-ID')}
                 </div>
               </div>
-              <div className="bg-slate-950 p-3 rounded-xl border border-slate-800">
-                <div className="text-[10px] text-slate-500 uppercase">Prev Close</div>
-                <div className="text-slate-200 font-bold mt-0.5">
+              <div className="bg-slate-50 p-3 rounded-xl border border-slate-200">
+                <div className="text-[10px] text-slate-500 uppercase font-semibold">Prev Close</div>
+                <div className="text-slate-900 font-bold mt-0.5">
                   Rp{(quote?.prevClose ?? (quote as any)?.prev_close ?? stockMeta?.basePrice ?? 0).toLocaleString('id-ID')}
                 </div>
               </div>
-              <div className="bg-slate-950 p-3 rounded-xl border border-slate-800">
-                <div className="text-[10px] text-slate-500 uppercase">Volume Harian</div>
-                <div className="text-slate-200 font-bold mt-0.5">
+              <div className="bg-slate-50 p-3 rounded-xl border border-slate-200">
+                <div className="text-[10px] text-slate-500 uppercase font-semibold">Volume Harian</div>
+                <div className="text-slate-900 font-bold mt-0.5">
                   {(quote?.volume ?? 0).toLocaleString('id-ID')}
                 </div>
               </div>
-              <div className="bg-slate-950 p-3 rounded-xl border border-slate-800">
-                <div className="text-[10px] text-slate-500 uppercase">P/E Ratio</div>
-                <div className="text-slate-200 font-bold mt-0.5">{stockMeta?.peRatio || 15}x</div>
+              <div className="bg-slate-50 p-3 rounded-xl border border-slate-200">
+                <div className="text-[10px] text-slate-500 uppercase font-semibold">P/E Ratio</div>
+                <div className="text-slate-900 font-bold mt-0.5">{stockMeta?.peRatio || 15}x</div>
               </div>
-              <div className="bg-slate-950 p-3 rounded-xl border border-slate-800">
-                <div className="text-[10px] text-slate-500 uppercase">Kapitalisasi Pasar</div>
-                <div className="text-slate-200 font-bold mt-0.5">{stockMeta?.marketCap || '50 T'}</div>
+              <div className="bg-slate-50 p-3 rounded-xl border border-slate-200">
+                <div className="text-[10px] text-slate-500 uppercase font-semibold">Kapitalisasi Pasar</div>
+                <div className="text-slate-900 font-bold mt-0.5">{stockMeta?.marketCap || '50 T'}</div>
               </div>
-              <div className="bg-slate-950 p-3 rounded-xl border border-slate-800">
-                <div className="text-[10px] text-slate-500 uppercase">Simbol Pasar</div>
-                <div className="text-emerald-400 font-bold mt-0.5">{currentTicker}.JK</div>
+              <div className="bg-slate-50 p-3 rounded-xl border border-slate-200">
+                <div className="text-[10px] text-slate-500 uppercase font-semibold">Simbol Pasar</div>
+                <div className="text-emerald-700 font-bold mt-0.5">{currentTicker}.JK</div>
               </div>
             </div>
 
             {/* Description */}
-            <div className="mt-4 pt-3 border-t border-slate-800/80 text-xs text-slate-400 leading-relaxed font-sans">
-              <span className="font-bold text-slate-300">Profil Perusahaan: </span>
+            <div className="mt-4 pt-3 border-t border-slate-100 text-xs text-slate-600 leading-relaxed font-sans">
+              <span className="font-bold text-slate-800">Profil Perusahaan: </span>
               {stockMeta?.description}
             </div>
           </div>
@@ -248,7 +248,7 @@ export default function StockPage({ params }: StockPageProps) {
 
       {/* AI Market Intelligence Hub */}
       <div className="space-y-4">
-        <div className="flex items-center space-x-2 bg-slate-900 border border-slate-800 rounded-2xl p-2 shadow-lg overflow-x-auto text-xs font-semibold">
+        <div className="flex items-center space-x-2 bg-white border border-slate-200 rounded-2xl p-2 shadow-xs overflow-x-auto text-xs font-semibold">
           {[
             { key: 'lens', label: 'AI Investment Lens (6 Lensa)', icon: Building2 },
             { key: 'scores', label: '6 Pilar Skor AI', icon: Sparkles },
@@ -261,8 +261,8 @@ export default function StockPage({ params }: StockPageProps) {
               onClick={() => setAiTab(key as any)}
               className={`flex items-center space-x-1.5 px-4 py-2.5 rounded-xl transition-all whitespace-nowrap cursor-pointer ${
                 aiTab === key
-                  ? 'bg-indigo-600 text-white font-bold shadow-md shadow-indigo-500/20'
-                  : 'text-slate-400 hover:text-white hover:bg-slate-800'
+                  ? 'bg-indigo-600 text-white font-bold shadow-xs'
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
               }`}
             >
               <Icon className="w-4 h-4" />
@@ -279,14 +279,14 @@ export default function StockPage({ params }: StockPageProps) {
       </div>
 
       {/* Bottom Section: Position & History */}
-      <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-xl">
-        <div className="flex items-center space-x-4 border-b border-slate-800 pb-3 mb-4">
+      <div className="bg-white border border-slate-200 rounded-2xl p-5 shadow-xs">
+        <div className="flex items-center space-x-4 border-b border-slate-200 pb-3 mb-4">
           <button
             onClick={() => setActiveTab('position')}
-            className={`flex items-center space-x-2 text-xs font-bold uppercase tracking-wider pb-2 -mb-3 transition-colors ${
+            className={`flex items-center space-x-2 text-xs font-bold uppercase tracking-wider pb-2 -mb-3 transition-colors cursor-pointer ${
               activeTab === 'position'
-                ? 'text-emerald-400 border-b-2 border-emerald-400'
-                : 'text-slate-400 hover:text-white'
+                ? 'text-emerald-700 border-b-2 border-emerald-600'
+                : 'text-slate-500 hover:text-slate-900'
             }`}
           >
             <Briefcase className="w-4 h-4" />
@@ -294,10 +294,10 @@ export default function StockPage({ params }: StockPageProps) {
           </button>
           <button
             onClick={() => setActiveTab('trades')}
-            className={`flex items-center space-x-2 text-xs font-bold uppercase tracking-wider pb-2 -mb-3 transition-colors ${
+            className={`flex items-center space-x-2 text-xs font-bold uppercase tracking-wider pb-2 -mb-3 transition-colors cursor-pointer ${
               activeTab === 'trades'
-                ? 'text-emerald-400 border-b-2 border-emerald-400'
-                : 'text-slate-400 hover:text-white'
+                ? 'text-emerald-700 border-b-2 border-emerald-600'
+                : 'text-slate-500 hover:text-slate-900'
             }`}
           >
             <History className="w-4 h-4" />
@@ -309,31 +309,31 @@ export default function StockPage({ params }: StockPageProps) {
           <div>
             {userPortfolio ? (
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-xs font-mono">
-                <div className="bg-slate-950 p-3.5 rounded-xl border border-slate-800">
-                  <div className="text-[10px] text-slate-500 uppercase">Jumlah Kepemilikan</div>
-                  <div className="text-white font-bold text-base mt-0.5">
+                <div className="bg-slate-50 p-3.5 rounded-xl border border-slate-200">
+                  <div className="text-[10px] text-slate-500 uppercase font-semibold">Jumlah Kepemilikan</div>
+                  <div className="text-slate-900 font-bold text-base mt-0.5">
                     {userPortfolio.lots} Lot ({(userPortfolio.total_shares || userPortfolio.totalShares || 0).toLocaleString('id-ID')} lembar)
                   </div>
                 </div>
-                <div className="bg-slate-950 p-3.5 rounded-xl border border-slate-800">
-                  <div className="text-[10px] text-slate-500 uppercase">Harga Beli Rata-Rata</div>
-                  <div className="text-slate-300 font-bold text-base mt-0.5">
+                <div className="bg-slate-50 p-3.5 rounded-xl border border-slate-200">
+                  <div className="text-[10px] text-slate-500 uppercase font-semibold">Harga Beli Rata-Rata</div>
+                  <div className="text-slate-700 font-bold text-base mt-0.5">
                     Rp{(userPortfolio.avg_buy_price || userPortfolio.avgBuyPrice || 0).toLocaleString('id-ID')}
                   </div>
                 </div>
-                <div className="bg-slate-950 p-3.5 rounded-xl border border-slate-800">
-                  <div className="text-[10px] text-slate-500 uppercase">Nilai Pasar Saat Ini</div>
-                  <div className="text-white font-bold text-base mt-0.5">
+                <div className="bg-slate-50 p-3.5 rounded-xl border border-slate-200">
+                  <div className="text-[10px] text-slate-500 uppercase font-semibold">Nilai Pasar Saat Ini</div>
+                  <div className="text-slate-900 font-bold text-base mt-0.5">
                     Rp{(userPortfolio.market_value || userPortfolio.marketValue || 0).toLocaleString('id-ID')}
                   </div>
                 </div>
-                <div className="bg-slate-950 p-3.5 rounded-xl border border-slate-800">
-                  <div className="text-[10px] text-slate-500 uppercase">Unrealized P&L</div>
+                <div className="bg-slate-50 p-3.5 rounded-xl border border-slate-200">
+                  <div className="text-[10px] text-slate-500 uppercase font-semibold">Unrealized P&L</div>
                   <div
                     className={`font-bold text-base mt-0.5 ${
                       (userPortfolio.unrealized_pnl ?? userPortfolio.unrealizedPnl ?? 0) >= 0
-                        ? 'text-emerald-400'
-                        : 'text-rose-400'
+                        ? 'text-emerald-700'
+                        : 'text-rose-700'
                     }`}
                   >
                     {(userPortfolio.unrealized_pnl ?? userPortfolio.unrealizedPnl ?? 0) >= 0 ? '+' : ''}Rp
@@ -342,7 +342,7 @@ export default function StockPage({ params }: StockPageProps) {
                 </div>
               </div>
             ) : (
-              <div className="text-center py-6 text-xs text-slate-500">
+              <div className="text-center py-6 text-xs text-slate-500 font-medium">
                 Anda belum memiliki kepemilikan saham {currentTicker}. Beli saham menggunakan panel di sebelah kanan.
               </div>
             )}
@@ -354,7 +354,7 @@ export default function StockPage({ params }: StockPageProps) {
             {tradeHistory.length > 0 ? (
               <table className="w-full text-xs text-left font-mono">
                 <thead>
-                  <tr className="border-b border-slate-800 text-[10px] uppercase text-slate-400">
+                  <tr className="border-b border-slate-200 text-[10px] uppercase text-slate-500 font-bold">
                     <th className="py-2.5 px-3">Tipe</th>
                     <th className="py-2.5 px-3">Jumlah Lot</th>
                     <th className="py-2.5 px-3">Harga Eksekusi</th>
@@ -365,36 +365,36 @@ export default function StockPage({ params }: StockPageProps) {
                     <th className="py-2.5 px-3">Waktu</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-800/60">
+                <tbody className="divide-y divide-slate-100">
                   {tradeHistory.map((t) => (
-                    <tr key={t.id} className="hover:bg-slate-850/50">
+                    <tr key={t.id} className="hover:bg-slate-50 transition-colors">
                       <td className="py-2.5 px-3">
                         <span
                           className={`px-2 py-0.5 rounded text-[10px] font-bold ${
                             t.type === 'BUY'
-                              ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
-                              : 'bg-rose-500/20 text-rose-400 border border-rose-500/30'
+                              ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
+                              : 'bg-rose-50 text-rose-700 border border-rose-200'
                           }`}
                         >
                           {t.type}
                         </span>
                       </td>
-                      <td className="py-2.5 px-3 text-white font-bold">{t.lot_quantity} Lot</td>
-                      <td className="py-2.5 px-3 text-slate-300">
+                      <td className="py-2.5 px-3 text-slate-900 font-bold">{t.lot_quantity} Lot</td>
+                      <td className="py-2.5 px-3 text-slate-700">
                         Rp{t.price.toLocaleString('id-ID')}
                       </td>
-                      <td className="py-2.5 px-3 text-slate-300">
+                      <td className="py-2.5 px-3 text-slate-700">
                         Rp{t.total_amount.toLocaleString('id-ID')}
                       </td>
-                      <td className="py-2.5 px-3 text-slate-400">
+                      <td className="py-2.5 px-3 text-slate-500">
                         Rp{t.broker_fee.toLocaleString('id-ID')}
                       </td>
-                      <td className="py-2.5 px-3 text-white font-bold">
+                      <td className="py-2.5 px-3 text-slate-900 font-bold">
                         Rp{t.total_settlement.toLocaleString('id-ID')}
                       </td>
                       <td
                         className={`py-2.5 px-3 font-bold ${
-                          t.realized_pnl >= 0 ? 'text-emerald-400' : 'text-rose-400'
+                          t.realized_pnl >= 0 ? 'text-emerald-700' : 'text-rose-700'
                         }`}
                       >
                         {t.type === 'SELL'
@@ -414,7 +414,7 @@ export default function StockPage({ params }: StockPageProps) {
                 </tbody>
               </table>
             ) : (
-              <div className="text-center py-6 text-xs text-slate-500">
+              <div className="text-center py-6 text-xs text-slate-500 font-medium">
                 Belum ada transaksi untuk saham {currentTicker}.
               </div>
             )}
