@@ -29,35 +29,16 @@ function getDatabaseUrl(): string {
     }
   }
 
-  // Cross-platform candidate locations for dev.db
-  const candidates = [
-    path.resolve(process.cwd(), 'prisma', 'dev.db'),
-    path.resolve(process.cwd(), 'dev.db'),
-    path.resolve(__dirname, '..', '..', 'prisma', 'dev.db'),
-    path.resolve(__dirname, '..', '..', 'dev.db'),
-    path.resolve(__dirname, '..', 'prisma', 'dev.db'),
-    path.join(process.cwd(), 'prisma', 'dev.db'),
-  ];
+  // Primary locations for dev.db
+  const prismaDbPath = path.join(process.cwd(), 'prisma', 'dev.db');
+  const rootDbPath = path.join(process.cwd(), 'dev.db');
 
-  let targetPath = candidates[0];
-  for (const candidate of candidates) {
-    try {
-      if (fs.existsSync(candidate)) {
-        targetPath = candidate;
-        break;
-      }
-    } catch {
-      // Continue searching
-    }
+  let targetPath = prismaDbPath;
+  if (fs.existsSync(prismaDbPath)) {
+    targetPath = prismaDbPath;
+  } else if (fs.existsSync(rootDbPath)) {
+    targetPath = rootDbPath;
   }
-
-  // Ensure parent directory exists
-  try {
-    const dir = path.dirname(targetPath);
-    if (!fs.existsSync(dir)) {
-      fs.mkdirSync(dir, { recursive: true });
-    }
-  } catch {}
 
   const normalized = targetPath.replace(/\\/g, '/');
   return `file:${normalized}`;
