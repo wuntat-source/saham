@@ -28,11 +28,14 @@ import {
   Globe,
   Briefcase,
   Zap,
+  Search,
 } from 'lucide-react';
+import StockSearchModal from '@/components/StockSearchModal';
 
 export default function Navbar() {
   const pathname = usePathname();
   const { user, logout, refreshUser } = useAuth();
+  const [searchModalOpen, setSearchModalOpen] = useState(false);
   const [joinModalOpen, setJoinModalOpen] = useState(false);
   const [joinCode, setJoinCode] = useState('');
   const [joinLoading, setJoinLoading] = useState(false);
@@ -71,6 +74,7 @@ export default function Navbar() {
 
   const navLinks = [
     { href: '/dashboard', label: 'Dashboard', icon: TrendingUp },
+    { href: '/search', label: 'Cari Saham', icon: Search, highlight: true },
     { href: '/market', label: 'Pasar Saham', icon: BarChart3 },
     { href: '/screener', label: 'AI Screener', icon: Sparkles, highlight: true },
     { href: '/radar', label: 'AI Radar', icon: Radar, highlight: true },
@@ -195,7 +199,20 @@ export default function Navbar() {
             </div>
 
             {/* Right Side Info & Actions */}
-            <div className="flex items-center space-x-3">
+            <div className="flex items-center space-x-2.5">
+              {/* Quick Stock Search Trigger */}
+              <button
+                onClick={() => setSearchModalOpen(true)}
+                className="flex items-center space-x-2 bg-slate-100/90 hover:bg-slate-200/80 text-slate-500 hover:text-slate-800 px-2.5 sm:px-3 py-1.5 rounded-xl text-xs font-medium border border-slate-200/80 transition-all cursor-pointer shadow-2xs group"
+                title="Cari Saham (Ctrl+K)"
+              >
+                <Search className="w-3.5 h-3.5 text-slate-400 group-hover:text-emerald-600 transition-colors" />
+                <span className="hidden sm:inline text-slate-600 group-hover:text-slate-900 font-semibold">Cari Saham...</span>
+                <kbd className="hidden lg:inline-block bg-white text-[10px] font-mono font-bold px-1.5 py-0.5 rounded border border-slate-300 text-slate-400 shadow-2xs">
+                  Ctrl+K
+                </kbd>
+              </button>
+
               {user ? (
                 <>
                   {/* Classroom Badge */}
@@ -273,6 +290,9 @@ export default function Navbar() {
           </div>
         </div>
       </nav>
+
+      {/* Stock Search Modal */}
+      <StockSearchModal isOpen={searchModalOpen} onClose={() => setSearchModalOpen(false)} />
 
       {/* Join Class Modal */}
       {joinModalOpen && (
