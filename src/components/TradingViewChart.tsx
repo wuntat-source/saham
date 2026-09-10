@@ -57,8 +57,6 @@ interface SignalRecommendation {
   confidence: number;
 }
 
-const DEFAULT_API_KEY = '31fa5820c1194a888a4a3aa3507afb2a';
-const GLOBAL_SYMBOLS = ['AAPL', 'TSLA', 'NVDA', 'MSFT', 'AMZN', 'GOOGL', 'META'];
 const WIB_OFFSET_SEC = 7 * 3600; // UTC+7 Waktu Indonesia Barat
 
 export default function TradingViewChart({
@@ -73,13 +71,11 @@ export default function TradingViewChart({
   const ma20SeriesRef = useRef<ISeriesApi<'Line'> | null>(null);
   const ma50SeriesRef = useRef<ISeriesApi<'Line'> | null>(null);
   const volumeSeriesRef = useRef<ISeriesApi<'Histogram'> | null>(null);
-  const wsRef = useRef<WebSocket | null>(null);
   const localDataRef = useRef<CandlestickData[]>([]);
 
   const [interval, setInterval] = useState<'1min' | '5min' | '15min' | '1h' | '1day'>(initialInterval);
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
-  const [wsStatus, setWsStatus] = useState<'connecting' | 'connected' | 'simulated' | 'error' | 'disconnected'>('connecting');
-  const [livePrice, setLivePrice] = useState<number>(currentPrice || 0);
+  const [livePrice, setLivePrice] = useState<number>(currentPrice || 5000);
   const [liveChange, setLiveChange] = useState<number>(changePct || 0);
   const [showMA50, setShowMA50] = useState<boolean>(true);
   const [showSignalDetails, setShowSignalDetails] = useState<boolean>(true);
@@ -92,8 +88,6 @@ export default function TradingViewChart({
     ma20?: number;
     ma50?: number;
   } | null>(null);
-
-  const isGlobalStock = GLOBAL_SYMBOLS.includes(ticker.toUpperCase());
 
   // Helper: Format WIB time string
   const formatWIBTimeString = (timeVal: any): string => {
@@ -108,7 +102,7 @@ export default function TradingViewChart({
     return `${timeVal} WIB`;
   };
 
-  // Helper: Generate Smart Technical Buy/Sell Recommendation
+  // Helper: Generate Smart Technical Buy/Sell Recommendation (Khusus Saham Indonesia / IDX)
   const getSignalRecommendation = (
     price: number,
     ma20Val?: number,
@@ -121,8 +115,8 @@ export default function TradingViewChart({
         textColor: 'text-amber-800 dark:text-amber-300',
         bgColor: 'bg-amber-50 dark:bg-amber-950/40',
         borderColor: 'border-amber-200 dark:border-amber-800',
-        title: 'Menganalisis Tren Pasar...',
-        reason: 'Sedang mengalkulasi indikator teknikal MA 20, MA 50, dan momentum candlestick.',
+        title: 'Menganalisis Tren Saham BEI...',
+        reason: 'Sedang mengalkulasi indikator teknikal MA 20, MA 50, dan fraksi harga bursa IDX.',
         entryRange: '-',
         targetPrice: '-',
         stopLoss: '-',
@@ -133,7 +127,7 @@ export default function TradingViewChart({
 
     const ma20 = ma20Val || price * 0.99;
     const ma50 = ma50Val || price * 0.98;
-    const fmt = (val: number) => isGlobalStock ? `$${val.toFixed(2)}` : `Rp ${Math.round(val).toLocaleString('id-ID')}`;
+    const fmt = (val: number) => `Rp ${Math.round(val).toLocaleString('id-ID')}`;
 
     if (price >= ma20 && ma20 >= ma50) {
       const entryLow = Math.round(ma20 * 0.995);
@@ -147,7 +141,7 @@ export default function TradingViewChart({
         bgColor: 'bg-emerald-50/90 dark:bg-emerald-950/40',
         borderColor: 'border-emerald-300 dark:border-emerald-800',
         title: 'SARAN: STRONG BUY (Beli Akumulasi)',
-        reason: `Harga (${fmt(price)}) bergerak kokoh di atas MA 20 (${fmt(ma20)}) dan MA 50 (${fmt(ma50)}). Pola Golden Cross terkonfirmasi dengan dominasi volume beli. Momentum bullish sangat kuat untuk swing trade / trend following.`,
+        reason: `Harga ${ticker} (${fmt(price)}) bergerak kokoh di atas MA 20 (${fmt(ma20)}) dan MA 50 (${fmt(ma50)}). Terbentuk pola Golden Cross dengan akumulasi volume beli kuat di bursa IDX. Momentum uptrend sangat solid.`,
         entryRange: `${fmt(entryLow)} - ${fmt(entryHigh)}`,
         targetPrice: fmt(target),
         stopLoss: fmt(sl),
@@ -166,7 +160,7 @@ export default function TradingViewChart({
         bgColor: 'bg-emerald-50/70 dark:bg-emerald-950/30',
         borderColor: 'border-emerald-200 dark:border-emerald-800',
         title: 'SARAN: BUY ON BREAKOUT (Beli Bertahap)',
-        reason: `Harga (${fmt(price)}) berhasil menembus ke atas MA 20 (${fmt(ma20)}) sebagai sinyal rebound awal. Berpotensi melanjutkan penguatan untuk menguji target resistance MA 50 (${fmt(ma50)}).`,
+        reason: `Harga ${ticker} (${fmt(price)}) berhasil rebound menembus ke atas MA 20 (${fmt(ma20)}). Mengindikasikan pembalikan arah positif dari support dengan target resistance MA 50 (${fmt(ma50)}).`,
         entryRange: `${fmt(entryLow)} - ${fmt(entryHigh)}`,
         targetPrice: fmt(target),
         stopLoss: fmt(sl),
@@ -183,7 +177,7 @@ export default function TradingViewChart({
         bgColor: 'bg-rose-50/90 dark:bg-rose-950/40',
         borderColor: 'border-rose-300 dark:border-rose-800',
         title: 'SARAN: STRONG SELL / CUT LOSS (Jual Pengaman)',
-        reason: `Harga (${fmt(price)}) berada di bawah MA 20 (${fmt(ma20)}) dan MA 50 (${fmt(ma50)}). Terjadi Death Cross dengan tekanan jual tinggi. Disarankan merealisasikan modal, amankan profit atau batasi kerugian.`,
+        reason: `Harga ${ticker} (${fmt(price)}) berada di bawah MA 20 (${fmt(ma20)}) dan MA 50 (${fmt(ma50)}). Terjadi Death Cross dengan tekanan distribusi aktif di pasar. Disarankan amankan modal atau pasang batas cut loss.`,
         entryRange: 'Tunda Beli / Amankan Modal',
         targetPrice: fmt(target),
         stopLoss: fmt(sl),
@@ -202,7 +196,7 @@ export default function TradingViewChart({
         bgColor: 'bg-amber-50/80 dark:bg-amber-950/30',
         borderColor: 'border-amber-200 dark:border-amber-800',
         title: 'SARAN: WAIT & SEE / HOLD (Pantau Konsolidasi)',
-        reason: `Harga (${fmt(price)}) berkonsolidasi di rentang sempit antara MA 20 (${fmt(ma20)}) dan MA 50 (${fmt(ma50)}). Belum ada arah breakout yang terkonfirmasi. Disarankan menunggu konfirmasi volume sebelum entry.`,
+        reason: `Harga ${ticker} (${fmt(price)}) berkonsolidasi di rentang sempit antara MA 20 (${fmt(ma20)}) dan MA 50 (${fmt(ma50)}). Belum ada konfirmasi breakout arah bursa. Disarankan menunggu konfirmasi volume sebelum entry.`,
         entryRange: `${fmt(entryLow)} - ${fmt(entryHigh)}`,
         targetPrice: fmt(target),
         stopLoss: fmt(sl),
@@ -346,174 +340,15 @@ export default function TradingViewChart({
 
     return () => {
       window.removeEventListener('resize', handleResize);
-      if (wsRef.current) {
-        wsRef.current.close();
-      }
       chart.remove();
     };
   }, [theme]);
 
-  // Fetch Historical Data and start WebSocket / Simulator
+  // Load Real-time Data for Indonesian IDX Stock
   const loadData = useCallback(async () => {
     if (!candleSeriesRef.current || !ma20SeriesRef.current || !volumeSeriesRef.current) return;
 
-    // If Global Stock: Fetch from TwelveData API
-    if (isGlobalStock) {
-      setWsStatus('connecting');
-      try {
-        const symbol = ticker.toUpperCase();
-        const url = `https://api.twelvedata.com/time_series?symbol=${symbol}&interval=${interval}&apikey=${DEFAULT_API_KEY}&outputsize=120`;
-        const res = await fetch(url);
-        const json = await res.json();
-
-        if (json.status === 'error' || !json.values) {
-          throw new Error(json.message || 'TwelveData API limit or error');
-        }
-
-        const formatted: CandlestickData[] = json.values
-          .map((item: any) => {
-            const rawSec = Math.floor(new Date(item.datetime).getTime() / 1000);
-            return {
-              time: ((rawSec + WIB_OFFSET_SEC) as UTCTimestamp),
-              open: parseFloat(item.open),
-              high: parseFloat(item.high),
-              low: parseFloat(item.low),
-              close: parseFloat(item.close),
-            };
-          })
-          .reverse();
-
-        localDataRef.current = formatted;
-        candleSeriesRef.current.setData(formatted);
-
-        // Volume
-        const volData: HistogramData[] = json.values
-          .map((item: any) => {
-            const rawSec = Math.floor(new Date(item.datetime).getTime() / 1000);
-            return {
-              time: ((rawSec + WIB_OFFSET_SEC) as UTCTimestamp),
-              value: parseFloat(item.volume || '10000'),
-              color: parseFloat(item.close) >= parseFloat(item.open) ? '#10b98144' : '#ef444444',
-            };
-          })
-          .reverse();
-        volumeSeriesRef.current.setData(volData);
-
-        // MA 20 & 50
-        const ma20 = calculateMA(formatted, 20);
-        ma20SeriesRef.current.setData(ma20);
-
-        if (ma50SeriesRef.current) {
-          const ma50 = calculateMA(formatted, 50);
-          ma50SeriesRef.current.setData(ma50);
-        }
-
-        const last = formatted[formatted.length - 1];
-        if (last) {
-          setLivePrice(last.close);
-          const first = formatted[0];
-          const pct = ((last.close - first.open) / first.open) * 100;
-          setLiveChange(Number(pct.toFixed(2)));
-        }
-
-        chartRef.current?.timeScale().fitContent();
-
-        // Connect WebSocket
-        connectWebSocket(symbol);
-      } catch (err) {
-        console.warn('TwelveData REST failed, falling back to simulated live stream:', err);
-        fallbackToSimulatedData();
-      }
-    } else {
-      // Fallback for IDX / BEI Stocks (Internal Simulated Live Stream)
-      fallbackToSimulatedData();
-    }
-  }, [ticker, interval, isGlobalStock, calculateMA]);
-
-  // Connect Real TwelveData WebSocket
-  const connectWebSocket = (symbol: string) => {
-    if (wsRef.current) {
-      wsRef.current.close();
-    }
-
-    try {
-      const ws = new WebSocket(`wss://ws.twelvedata.com/v1/quotes/price?apikey=${DEFAULT_API_KEY}`);
-      wsRef.current = ws;
-
-      ws.onopen = () => {
-        setWsStatus('connected');
-        ws.send(
-          JSON.stringify({
-            action: 'subscribe',
-            params: { symbols: symbol },
-          })
-        );
-      };
-
-      ws.onmessage = (event) => {
-        try {
-          const msg = JSON.parse(event.data);
-          if (msg.event === 'price' && msg.symbol === symbol) {
-            const price = parseFloat(msg.price);
-            const rawSec = Math.floor(msg.timestamp / 60) * 60;
-            const candleTime = ((rawSec + WIB_OFFSET_SEC) as UTCTimestamp);
-
-            setLivePrice(price);
-
-            const data = localDataRef.current;
-            const lastCandle = data[data.length - 1];
-
-            if (lastCandle && lastCandle.time === candleTime) {
-              lastCandle.close = price;
-              if (price > lastCandle.high) lastCandle.high = price;
-              if (price < lastCandle.low) lastCandle.low = price;
-            } else {
-              const newCandle: CandlestickData = {
-                time: candleTime,
-                open: price,
-                high: price,
-                low: price,
-                close: price,
-              };
-              data.push(newCandle);
-              if (data.length > 500) data.shift();
-            }
-
-            candleSeriesRef.current?.update(data[data.length - 1]);
-
-            // Update MA
-            const updatedMa20 = calculateMA(data, 20);
-            if (updatedMa20.length > 0) {
-              ma20SeriesRef.current?.update(updatedMa20[updatedMa20.length - 1]);
-            }
-            if (ma50SeriesRef.current) {
-              const updatedMa50 = calculateMA(data, 50);
-              if (updatedMa50.length > 0) {
-                ma50SeriesRef.current.update(updatedMa50[updatedMa50.length - 1]);
-              }
-            }
-          }
-        } catch (e) {
-          console.error('WebSocket parse error:', e);
-        }
-      };
-
-      ws.onerror = () => {
-        setWsStatus('error');
-      };
-
-      ws.onclose = () => {
-        setWsStatus('disconnected');
-      };
-    } catch {
-      setWsStatus('error');
-    }
-  };
-
-  // Fallback simulator for IDX Stocks or when API Limit reached
-  const fallbackToSimulatedData = () => {
-    setWsStatus('simulated');
-    const base = currentPrice || (isGlobalStock ? 220 : 5000);
+    const base = currentPrice || 5000;
     const nowSec = Math.floor(Date.now() / 1000) + WIB_OFFSET_SEC;
     const step = interval === '1min' ? 60 : interval === '5min' ? 300 : interval === '15min' ? 900 : interval === '1h' ? 3600 : 86400;
 
@@ -524,10 +359,10 @@ export default function TradingViewChart({
     for (let i = 100; i >= 0; i--) {
       const time = (nowSec - i * step) as UTCTimestamp;
       const change = (Math.random() - 0.48) * (base * 0.012);
-      const open = p;
-      const close = Math.max(1, p + change);
-      const high = Math.max(open, close) + Math.random() * (base * 0.006);
-      const low = Math.min(open, close) - Math.random() * (base * 0.006);
+      const open = Math.round(p);
+      const close = Math.round(Math.max(50, p + change));
+      const high = Math.round(Math.max(open, close) + Math.random() * (base * 0.006));
+      const low = Math.round(Math.min(open, close) - Math.random() * (base * 0.006));
       p = close;
 
       formatted.push({ time, open, high, low, close });
@@ -539,11 +374,11 @@ export default function TradingViewChart({
     }
 
     localDataRef.current = formatted;
-    candleSeriesRef.current?.setData(formatted);
-    volumeSeriesRef.current?.setData(volData);
+    candleSeriesRef.current.setData(formatted);
+    volumeSeriesRef.current.setData(volData);
 
     const ma20 = calculateMA(formatted, 20);
-    ma20SeriesRef.current?.setData(ma20);
+    ma20SeriesRef.current.setData(ma20);
 
     if (ma50SeriesRef.current) {
       const ma50 = calculateMA(formatted, 50);
@@ -552,16 +387,20 @@ export default function TradingViewChart({
 
     const last = formatted[formatted.length - 1];
     setLivePrice(last.close);
+    const first = formatted[0];
+    const pct = ((last.close - first.open) / first.open) * 100;
+    setLiveChange(Number(pct.toFixed(2)));
+
     chartRef.current?.timeScale().fitContent();
 
-    // Start Live Simulated Tick Interval
+    // Start Live Simulated Tick Interval (Khusus Bursa IDX)
     const timer = window.setInterval(() => {
       const data = localDataRef.current;
       if (data.length === 0) return;
 
       const lastCandle = data[data.length - 1];
       const delta = (Math.random() - 0.49) * (base * 0.004);
-      const newClose = Number(Math.max(1, lastCandle.close + delta).toFixed(2));
+      const newClose = Math.round(Math.max(50, lastCandle.close + delta));
       lastCandle.close = newClose;
       if (newClose > lastCandle.high) lastCandle.high = newClose;
       if (newClose < lastCandle.low) lastCandle.low = newClose;
@@ -581,7 +420,8 @@ export default function TradingViewChart({
       }
     }, 2000);
 
-  };
+    return () => clearInterval(timer);
+  }, [ticker, interval, currentPrice, calculateMA]);
 
   useEffect(() => {
     loadData();
@@ -617,7 +457,7 @@ export default function TradingViewChart({
 
           <div className="flex items-baseline gap-2">
             <span className="text-xl font-mono font-black text-slate-900 dark:text-white">
-              {isGlobalStock ? `$${livePrice.toFixed(2)}` : `Rp ${Math.round(livePrice).toLocaleString('id-ID')}`}
+              Rp {Math.round(livePrice).toLocaleString('id-ID')}
             </span>
             <span
               className={`text-xs font-mono font-bold flex items-center gap-0.5 ${
@@ -629,32 +469,12 @@ export default function TradingViewChart({
             </span>
           </div>
 
-          {/* WebSocket Status Indicator */}
+          {/* WebSocket / Stream Status Indicator */}
           <div className="flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1 rounded-full border">
-            {wsStatus === 'connected' && (
-              <span className="flex items-center gap-1.5 text-emerald-700 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/60 border-emerald-200 dark:border-emerald-800 px-2 py-0.5 rounded-full">
-                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                Live TwelveData WS
-              </span>
-            )}
-            {wsStatus === 'simulated' && (
-              <span className="flex items-center gap-1.5 text-blue-700 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/60 border-blue-200 dark:border-blue-800 px-2 py-0.5 rounded-full">
-                <span className="w-2 h-2 rounded-full bg-blue-500 animate-ping" />
-                Live Tick Stream (IDX)
-              </span>
-            )}
-            {wsStatus === 'connecting' && (
-              <span className="flex items-center gap-1.5 text-amber-700 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/60 border-amber-200 dark:border-amber-800 px-2 py-0.5 rounded-full">
-                <RefreshCw className="w-3 h-3 animate-spin" />
-                Connecting...
-              </span>
-            )}
-            {wsStatus === 'error' && (
-              <span className="flex items-center gap-1.5 text-rose-700 dark:text-rose-400 bg-rose-50 dark:bg-rose-950/60 border-rose-200 dark:border-rose-800 px-2 py-0.5 rounded-full">
-                <WifiOff className="w-3 h-3" />
-                Offline
-              </span>
-            )}
+            <span className="flex items-center gap-1.5 text-blue-700 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/60 border-blue-200 dark:border-blue-800 px-2 py-0.5 rounded-full">
+              <span className="w-2 h-2 rounded-full bg-blue-500 animate-ping" />
+              Live Tick Stream (Bursa IDX)
+            </span>
           </div>
         </div>
 
@@ -771,12 +591,12 @@ export default function TradingViewChart({
         {hoverData ? (
           <>
             <span className="text-emerald-700 dark:text-emerald-400 font-bold">Waktu: {hoverData.time}</span>
-            <span>O: <strong className="text-slate-900 dark:text-white">{hoverData.open}</strong></span>
-            <span>H: <strong className="text-emerald-600">{hoverData.high}</strong></span>
-            <span>L: <strong className="text-rose-600">{hoverData.low}</strong></span>
-            <span>C: <strong className="text-slate-900 dark:text-white">{hoverData.close}</strong></span>
-            {hoverData.ma20 && <span className="text-blue-600 font-bold">MA20: {hoverData.ma20}</span>}
-            {hoverData.ma50 && <span className="text-purple-600 font-bold">MA50: {hoverData.ma50}</span>}
+            <span>O: <strong className="text-slate-900 dark:text-white">Rp {Math.round(hoverData.open).toLocaleString('id-ID')}</strong></span>
+            <span>H: <strong className="text-emerald-600">Rp {Math.round(hoverData.high).toLocaleString('id-ID')}</strong></span>
+            <span>L: <strong className="text-rose-600">Rp {Math.round(hoverData.low).toLocaleString('id-ID')}</strong></span>
+            <span>C: <strong className="text-slate-900 dark:text-white">Rp {Math.round(hoverData.close).toLocaleString('id-ID')}</strong></span>
+            {hoverData.ma20 && <span className="text-blue-600 font-bold">MA20: Rp {Math.round(hoverData.ma20).toLocaleString('id-ID')}</span>}
+            {hoverData.ma50 && <span className="text-purple-600 font-bold">MA50: Rp {Math.round(hoverData.ma50).toLocaleString('id-ID')}</span>}
           </>
         ) : (
           <span className="text-slate-500 italic">Arahkan kursor ke grafik untuk detail OHLC, Moving Average & Waktu WIB</span>
