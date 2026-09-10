@@ -35,6 +35,7 @@ interface TradingViewChartProps {
 
 const DEFAULT_API_KEY = '31fa5820c1194a888a4a3aa3507afb2a';
 const GLOBAL_SYMBOLS = ['AAPL', 'TSLA', 'NVDA', 'MSFT', 'AMZN', 'GOOGL', 'META'];
+const WIB_OFFSET_SEC = 7 * 3600; // UTC+7 Waktu Indonesia Barat
 
 export default function TradingViewChart({
   ticker,
@@ -68,6 +69,19 @@ export default function TradingViewChart({
   } | null>(null);
 
   const isGlobalStock = GLOBAL_SYMBOLS.includes(ticker.toUpperCase());
+
+  // Helper: Format WIB time string
+  const formatWIBTimeString = (timeVal: any): string => {
+    if (!timeVal) return '';
+    if (typeof timeVal === 'number') {
+      const d = new Date(timeVal * 1000);
+      const h = String(d.getUTCHours()).padStart(2, '0');
+      const m = String(d.getUTCMinutes()).padStart(2, '0');
+      const s = String(d.getUTCSeconds()).padStart(2, '0');
+      return `${h}:${m}:${s} WIB`;
+    }
+    return `${timeVal} WIB`;
+  };
 
   // Helper: Calculate Moving Average
   const calculateMA = useCallback((data: CandlestickData[], period: number): LineData[] => {
@@ -172,7 +186,7 @@ export default function TradingViewChart({
 
       if (candle) {
         setHoverData({
-          time: String(param.time),
+          time: formatWIBTimeString(param.time),
           open: candle.open,
           high: candle.high,
           low: candle.low,
@@ -228,13 +242,16 @@ export default function TradingViewChart({
         }
 
         const formatted: CandlestickData[] = json.values
-          .map((item: any) => ({
-            time: (Math.floor(new Date(item.datetime).getTime() / 1000) as UTCTimestamp),
-            open: parseFloat(item.open),
-            high: parseFloat(item.high),
-            low: parseFloat(item.low),
-            close: parseFloat(item.close),
-          }))
+          .map((item: any) => {
+            const rawSec = Math.floor(new Date(item.datetime).getTime() / 1000);
+            return {
+              time: ((rawSec + WIB_OFFSET_SEC) as UTCTimestamp),
+              open: parseFloat(item.open),
+              high: parseFloat(item.high),
+              low: parseFloat(item.low),
+              close: parseFloat(item.close),
+            };
+          })
           .reverse();
 
         localDataRef.current = formatted;
@@ -242,11 +259,14 @@ export default function TradingViewChart({
 
         // Volume
         const volData: HistogramData[] = json.values
-          .map((item: any) => ({
-            time: (Math.floor(new Date(item.datetime).getTime() / 1000) as UTCTimestamp),
-            value: parseFloat(item.volume || '10000'),
-            color: parseFloat(item.close) >= parseFloat(item.open) ? '#10b98144' : '#ef444444',
-          }))
+          .map((item: any) => {
+            const rawSec = Math.floor(new Date(item.datetime).getTime() / 1000);
+            return {
+              time: ((rawSec + WIB_OFFSET_SEC) as UTCTimestamp),
+              value: parseFloat(item.volume || '10000'),
+              color: parseFloat(item.close) >= parseFloat(item.open) ? '#10b98144' : '#ef444444',
+            };
+          })
           .reverse();
         volumeSeriesRef.current.setData(volData);
 
@@ -306,7 +326,8 @@ export default function TradingViewChart({
           const msg = JSON.parse(event.data);
           if (msg.event === 'price' && msg.symbol === symbol) {
             const price = parseFloat(msg.price);
-            const candleTime = (Math.floor(msg.timestamp / 60) * 60) as UTCTimestamp;
+            const rawSec = Math.floor(msg.timestamp / 60) * 60;
+            const candleTime = ((rawSec + WIB_OFFSET_SEC) as UTCTimestamp);
 
             setLivePrice(price);
 
@@ -364,7 +385,7 @@ export default function TradingViewChart({
   const fallbackToSimulatedData = () => {
     setWsStatus('simulated');
     const base = currentPrice || (isGlobalStock ? 220 : 5000);
-    const nowSec = Math.floor(Date.now() / 1000);
+    const nowSec = Math.floor(Date.now() / 1000) + WIB_OFFSET_SEC;
     const step = interval === '1min' ? 60 : interval === '5min' ? 300 : interval === '15min' ? 900 : interval === '1h' ? 3600 : 86400;
 
     let p = base * 0.95;
@@ -431,7 +452,6 @@ export default function TradingViewChart({
       }
     }, 2000);
 
-    return () => clearInterval(timer);
   };
 
   useEffect(() => {
@@ -456,6 +476,9 @@ export default function TradingViewChart({
             </span>
             <span className="text-xs px-2 py-0.5 rounded-full font-medium bg-indigo-50 text-indigo-700 dark:bg-indigo-950 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800">
               TradingView Live
+            </span>
+            <span className="text-xs px-2 py-0.5 rounded-full font-semibold bg-emerald-50 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">
+              🇮🇩 WIB (UTC+7)
             </span>
           </div>
 
@@ -558,6 +581,7 @@ export default function TradingViewChart({
       }`}>
         {hoverData ? (
           <>
+            <span className="text-emerald-700 dark:text-emerald-400 font-bold">Waktu: {hoverData.time}</span>
             <span>O: <strong className="text-slate-900 dark:text-white">{hoverData.open}</strong></span>
             <span>H: <strong className="text-emerald-600">{hoverData.high}</strong></span>
             <span>L: <strong className="text-rose-600">{hoverData.low}</strong></span>
@@ -566,7 +590,7 @@ export default function TradingViewChart({
             {hoverData.ma50 && <span className="text-purple-600 font-bold">MA50: {hoverData.ma50}</span>}
           </>
         ) : (
-          <span className="text-slate-500 italic">Arahkan kursor ke grafik untuk detail OHLC & Moving Average</span>
+          <span className="text-slate-500 italic">Arahkan kursor ke grafik untuk detail OHLC, Moving Average & Waktu WIB</span>
         )}
       </div>
 
