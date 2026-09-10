@@ -38,7 +38,10 @@ export default function TickerRibbon() {
         <span>IDX LIVE</span>
       </div>
 
-      <div className="flex animate-marquee whitespace-nowrap space-x-6 items-center">
+      <div
+        className="flex animate-marquee whitespace-nowrap space-x-6 items-center"
+        style={{ animationDuration: `${Math.max(120, quotes.length * 2.5)}s` }}
+      >
         {displayQuotes.map((q, idx) => {
           const isUp = q.change >= 0;
           return (
