@@ -40,7 +40,7 @@ export default function TickerRibbon() {
 
       <div
         className="flex animate-marquee whitespace-nowrap space-x-6 items-center"
-        style={{ animationDuration: `${Math.max(120, quotes.length * 2.5)}s` }}
+        style={{ animationDuration: `${Math.max(300, quotes.length * 6.0)}s` }}
       >
         {displayQuotes.map((q, idx) => {
           const isUp = q.change >= 0;

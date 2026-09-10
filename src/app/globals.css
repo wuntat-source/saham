@@ -200,7 +200,7 @@ input::placeholder, textarea::placeholder {
 .animate-marquee {
   display: flex;
   width: max-content;
-  animation: marquee 180s linear infinite;
+  animation: marquee 360s linear infinite;
 }
 
 .animate-marquee:hover {
