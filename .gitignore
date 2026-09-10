@@ -41,10 +41,7 @@ yarn-error.log*
 next-env.d.ts
 
 # database
-*.db
+# *.db (tracked for standalone demo on github)
 *.db-journal
-*.sqlite
-*.sqlite3
-prisma/dev.db
-prisma/dev.db-journal
+
 
