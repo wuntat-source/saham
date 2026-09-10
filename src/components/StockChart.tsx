@@ -30,6 +30,7 @@ import {
 } from './chart/drawing-engine';
 import ChartDrawingToolbar from './chart/ChartDrawingToolbar';
 import ChartIndicatorMenu from './chart/ChartIndicatorMenu';
+import TradingViewChart from './TradingViewChart';
 
 interface StockChartProps {
   ticker: string;
@@ -38,6 +39,7 @@ interface StockChartProps {
 }
 
 export default function StockChart({ ticker, currentPrice, changePct }: StockChartProps) {
+  const [engineMode, setEngineMode] = useState<'tradingview' | 'pro_draw'>('tradingview');
   const [range, setRange] = useState<'1m' | '15m' | '1h' | '1D' | '1W' | '1M'>('15m');
   const [chartType, setChartType] = useState<ChartType>('candles');
   const [theme, setTheme] = useState<ChartTheme>('light'); // Default to light theme as requested
@@ -604,21 +606,63 @@ export default function StockChart({ ticker, currentPrice, changePct }: StockCha
   const isLight = theme === 'light';
 
   return (
-    <div
-      className={`border rounded-2xl flex flex-col shadow-xl overflow-hidden relative transition-colors ${
-        isLight
-          ? 'bg-white border-slate-200 text-slate-800'
-          : 'bg-slate-900 border-slate-800 text-slate-100'
-      }`}
-    >
-      {/* Top Header Controls Bar */}
-      <div
-        className={`flex flex-col lg:flex-row lg:items-center justify-between gap-3 p-3 sm:p-4 border-b transition-colors ${
-          isLight
-            ? 'bg-slate-50/80 border-slate-200'
-            : 'bg-slate-950/40 border-slate-800'
-        }`}
-      >
+    <div className="flex flex-col gap-3">
+      {/* Top Engine Switcher Pill */}
+      <div className={`flex flex-wrap items-center justify-between border p-1.5 rounded-2xl shadow-xs transition-colors ${
+        isLight ? 'bg-white border-slate-200' : 'bg-slate-900 border-slate-800'
+      }`}>
+        <div className="flex items-center gap-1.5">
+          <button
+            onClick={() => setEngineMode('tradingview')}
+            className={`flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
+              engineMode === 'tradingview'
+                ? 'bg-emerald-600 text-white shadow-xs'
+                : isLight
+                ? 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+                : 'text-slate-400 hover:text-white hover:bg-slate-800'
+            }`}
+          >
+            <span className="w-2 h-2 rounded-full bg-emerald-300 animate-pulse" />
+            TradingView Live (TwelveData WS)
+          </button>
+          <button
+            onClick={() => setEngineMode('pro_draw')}
+            className={`flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
+              engineMode === 'pro_draw'
+                ? 'bg-indigo-600 text-white shadow-xs'
+                : isLight
+                ? 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+                : 'text-slate-400 hover:text-white hover:bg-slate-800'
+            }`}
+          >
+            <Sparkles className="w-3.5 h-3.5" />
+            Pro Studio Drawing Tools
+          </button>
+        </div>
+
+        <div className="text-xs text-slate-500 font-mono pr-2 hidden sm:block">
+          {engineMode === 'tradingview' ? '● Real-time Stream & Indicators' : '● Interactive Drawing Engine'}
+        </div>
+      </div>
+
+      {engineMode === 'tradingview' ? (
+        <TradingViewChart ticker={ticker} currentPrice={currentPrice} changePct={changePct} />
+      ) : (
+        <div
+          className={`border rounded-2xl flex flex-col shadow-xl overflow-hidden relative transition-colors ${
+            isLight
+              ? 'bg-white border-slate-200 text-slate-800'
+              : 'bg-slate-900 border-slate-800 text-slate-100'
+          }`}
+        >
+          {/* Top Header Controls Bar */}
+          <div
+            className={`flex flex-col lg:flex-row lg:items-center justify-between gap-3 p-3 sm:p-4 border-b transition-colors ${
+              isLight
+                ? 'bg-slate-50/80 border-slate-200'
+                : 'bg-slate-950/40 border-slate-800'
+            }`}
+          >
         <div className="flex flex-wrap items-center gap-3">
           <div className="flex items-center space-x-2">
             <h2 className={`text-xl sm:text-2xl font-black font-mono tracking-tight ${isLight ? 'text-slate-900' : 'text-white'}`}>
@@ -930,6 +974,8 @@ export default function StockChart({ ticker, currentPrice, changePct }: StockCha
               </button>
             </div>
           </div>
+        </div>
+      )}
         </div>
       )}
     </div>
